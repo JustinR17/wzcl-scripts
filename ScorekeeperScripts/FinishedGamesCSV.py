@@ -3,30 +3,49 @@ import requests
 import re
 import sys
 
+
+################
+### Preamble ###
+################
+
+###
+### The following below should be changed on every run
+###
+
 # Output file cannot already exist or else I crash this... Prevents overwrites
 OUTPUT_FILE_NAME = "output.txt"
 
+
+###
+### The following should be changed once every clan league
+###
+
 # Must point to the base league page on the clot (showing all tournaments)
 CLOT_PAGE_URL = "http://wzclot.eastus.cloudapp.azure.com/leagues/681/"
+
+# Division order to show in output (MUST MATCH CLOT NAMES)
+divisions = ["Division A", "Division B", "Division C", "Division D"]
+
+# Tournament order to show in output (MUST MATCH CLOT NAMES)
+tournaments = [
+    "CL15: 3v3 Middle Earth in the Third Age",
+    "CL15: 3v3 Deadman's Rise of Rome",
+    "CL15: 2v2 Szeurope",
+    "CL15: 2v2 Strategic MME",
+    "CL15: 2v2 Biomes of America",
+    "CL15: 1v1 Timid Lands",
+    "CL15: 1v1 Aseridith Islands",
+    "CL15: 1v1 Battle Islands V",
+    "CL15: 1v1 Strategic Greece",
+    "CL15: 1v1 Numenor",
+    "CL15: 1v1 Great Lakes"
+]
 
 
 #########################################
 ###### DO NOT CHANGE WHAT IS BELOW ######
 #########################################
 # pls
-
-############################
-### Object Declarations ###
-############################
-
-# Ordering of divisions and tournaments for consistency
-divisions = ["Division A", "Division B", "Division C", "Division D"]
-tournaments = ["CL15: 3v3 Middle Earth in the Third Age", "CL15: 3v3 Deadman's Rise of Rome", "CL15: 2v2 Szeurope", "CL15: 2v2 Strategic MME", "CL15: 2v2 Biomes of America", "CL15: 1v1 Timid Lands", "CL15: 1v1 Aseridith Islands", "CL15: 1v1 Battle Islands V", "CL15: 1v1 Strategic Greece", "CL15: 1v1 Numenor", "CL15: 1v1 Great Lakes"]
-
-abrv_clans = ["Fifth Column Confederation", "[V.I.W] Very Important Weirdos", "MASTER Clan", "French Community", "Brothers in Arms", "The Last Alliance", "The Hodopian Dynasty", "GRANDMASTER Clan"]
-abrv_clans_shortforms = ["FCC", "VIW", "Masters", "FC", "BIA", "TLA", "Hodopian Dynasty", "Grandmasters"]
-
-
 
 ############################
 ##### Helper Functions #####
