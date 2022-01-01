@@ -1,0 +1,13 @@
+# Unneeded files
+*.out
+*.exe
+*.temp
+archived/
+
+# Dependencies
+node_modules/
+venv/
+
+# Private files
+.env
+private.json
