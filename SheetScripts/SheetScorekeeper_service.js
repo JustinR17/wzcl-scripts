@@ -2,38 +2,23 @@ const fs = require("fs");
 const { google } = require("googleapis");
 require("dotenv").config();
 
+// Extra files
 let privateKey = require("./private.json");
-
 const { webScrapeClot } = require("./WebScrapeClot");
 
-const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
+/********************
+ ***** Preamble *****
+ ********************/
 
-// configure a JWT auth client
-let jwtClient = new google.auth.JWT(
-  privateKey.client_email,
-  null,
-  privateKey.private_key,
-  SCOPES
-);
-//authenticate request
-jwtClient.authorize(async (err, tokens) => {
-  if (err) {
-    console.log(err);
-    return;
-  } else {
-    console.log("Successfully connected!");
-    await updateAllSheets();
-  }
-});
+/*
+The following should be updated somewhere once a clan league
+*/
 
-
-/******************
- ***** Scripts *****
- ******************/
-
+// UPDATE THE spreadsheet ID in the .env file... This is the ID in the URL
 const spreadsheetId = process.env.SSID;
-const DIVISIONS = ["A", "B", "C", "D"];
 
+// This is a mapping from the clans true name (on wz and the clot) to the name normal name in the spreadsheet
+// I separate divisions with an empty line, but this is purely visual and has no purpose
 const API_TO_SHEET_CLANS = {
   "ONE!": "ONE!",
   "[WG]": "|WG|",
@@ -66,6 +51,22 @@ const API_TO_SHEET_CLANS = {
   "VS": "VS",
 };
 
+
+/*************************************
+ **** DO NOT CHANGE WHAT IS BELOW ****
+ *************************************/
+
+// Divisions array for iterating
+const DIVISIONS = ["A", "B", "C", "D"];
+
+// Google API Scope for reading/writing spreadsheets
+const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
+
+/**********************
+ ** Helper Functions **
+ ***********************/
+
+// Scrapes the clot page (should be used in live environment)
 async function apiWebScrape() {
   let games = await webScrapeClot();
   fs.writeFile("cl.json", JSON.stringify(games), (err) => {
@@ -75,6 +76,8 @@ async function apiWebScrape() {
   return games;
 }
 
+// Reads saved data from the cl.json file (which is saved from apiWebScrape())
+// Useful for testing as apiWebScrape() takes a while
 async function mockWebScrape() {
   return new Promise((resolve, reject) => {
     fs.readFile("cl.json", (err, content) => {
@@ -328,3 +331,22 @@ async function updateAllSheets(auth) {
 
   await updateBoots(boots, sheet);
 }
+
+// configure a JWT auth client
+let jwtClient = new google.auth.JWT(
+  privateKey.client_email,
+  null,
+  privateKey.private_key,
+  SCOPES
+);
+//authenticate request
+jwtClient.authorize(async (err, tokens) => {
+  if (err) {
+    console.log(err);
+    return;
+  } else {
+    console.log("Successfully connected!");
+    await updateAllSheets();
+  }
+});
+

@@ -3,11 +3,25 @@ import requests
 import re
 import sys
 
+
+################
+### Preamble ###
+################
+
+###
+### The following below should be changed on every run
+###
+
 # Input file name for finding games already processed in updates
 INPUT_FILE_NAME =  "starterfile.txt"
 
 # Output file cannot already exist or else I crash this... Prevents overwrites
 OUTPUT_FILE_NAME = "diva.temp"
+
+
+###
+### The following should be changed once every clan league
+###
 
 # This will turn to -> "Division A.txt"
 FORUM_FILE_NAME = ".txt"
@@ -15,27 +29,51 @@ FORUM_FILE_NAME = ".txt"
 # Must point to the base league page on the clot (showing all tournaments)
 CLOT_PAGE_URL = "http://wzclot.eastus.cloudapp.azure.com/leagues/681/"
 
-WZ_API_URL = "https://www.warzone.com/API/ValidateInviteToken?Token="
-
-
-#########################################
-###### DO NOT CHANGE WHAT IS BELOW ######
-#########################################
-# pls
-
-############################
-### Object Declarations ###
-############################
-
-# Ordering of divisions and tournaments for consistency
+# Division order to show in output (MUST MATCH CLOT NAMES)
 divisions = ["Division A", "Division B", "Division C", "Division D"]
-tournaments = ["CL15: 3v3 Middle Earth in the Third Age", "CL15: 3v3 Deadman's Rise of Rome", "CL15: 2v2 Szeurope", "CL15: 2v2 Strategic MME", "CL15: 2v2 Biomes of America", "CL15: 1v1 Timid Lands", "CL15: 1v1 Aseridith Islands", "CL15: 1v1 Battle Islands V", "CL15: 1v1 Strategic Greece", "CL15: 1v1 Numenor", "CL15: 1v1 Great Lakes"]
 
+# Tournament order to show in output (MUST MATCH CLOT NAMES)
+tournaments = [
+    "CL15: 3v3 Middle Earth in the Third Age",
+    "CL15: 3v3 Deadman's Rise of Rome",
+    "CL15: 2v2 Szeurope",
+    "CL15: 2v2 Strategic MME",
+    "CL15: 2v2 Biomes of America",
+    "CL15: 1v1 Timid Lands",
+    "CL15: 1v1 Aseridith Islands",
+    "CL15: 1v1 Battle Islands V",
+    "CL15: 1v1 Strategic Greece",
+    "CL15: 1v1 Numenor",
+    "CL15: 1v1 Great Lakes"
+]
+
+# If a clan has 3pt penalties (ex. late submission), add their full name in this variable (MUST MATCH CLOT NAMES)
 clans_w_3pt_penalties = ["French Community"]
-abrv_clans = ["Fifth Column Confederation", "[V.I.W] Very Important Weirdos", "MASTER Clan", "French Community", "Brothers in Arms", "The Last Alliance", "The Hodopian Dynasty", "GRANDMASTER Clan"]
-abrv_clans_shortforms = ["FCC", "VIW", "Masters", "FC", "BIA", "TLA", "Hodopian Dynasty", "Grandmasters"]
 
-# Imgur links for templates to show on the forums... Make sure template name matches the clot names
+# If a clan has a long name, add their full name in `abrv_clans` and the shortform in `abrv_clans_shortforms`... The indices MUST match between the two lists
+abrv_clans = [
+    "Fifth Column Confederation",
+    "[V.I.W] Very Important Weirdos",
+    "MASTER Clan",
+    "French Community",
+    "Brothers in Arms",
+    "The Last Alliance",
+    "The Hodopian Dynasty",
+    "GRANDMASTER Clan"
+]
+abrv_clans_shortforms = [
+    "FCC",
+    "VIW",
+    "Masters",
+    "FC",
+    "BIA",
+    "TLA",
+    "Hodopian Dynasty",
+    "Grandmasters"
+]
+
+# Imgur links for templates to show on the forums... Make sure template name matches the clot names (also copied above in `tournaments`)
+# Note: we use imgur as the links are short (link characters count in WZ forum character limit)
 template_links = {
   "CL15: 3v3 Middle Earth in the Third Age": "https://imgur.com/pPYvIov",
   "CL15: 3v3 Deadman's Rise of Rome": "https://imgur.com/bB4ex5B",
@@ -51,6 +89,7 @@ template_links = {
 }
 
 # Imgur links for clans to show on the forums... Make sure clan name matches the clot names
+# Note: we use imgur as the links are short (link characters count in WZ forum character limit)
 clan_links = {
   "Python": "https://i.imgur.com/aZ9wzPJ.png",
   "Fifth Column Confederation": "https://i.imgur.com/mn8RPhZ.png",
@@ -84,6 +123,12 @@ clan_links = {
 }
 
 
+#########################################
+###### DO NOT CHANGE WHAT IS BELOW ######
+#########################################
+# pls
+
+WZ_API_URL = "https://www.warzone.com/API/ValidateInviteToken?Token="
 
 ############################
 ##### Helper Functions #####
