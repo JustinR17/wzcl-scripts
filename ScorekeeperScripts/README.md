@@ -45,6 +45,25 @@ Note: the updates for each variant are identical.
 * `template_links` contain mappings from the template name on the CLOT to imgur links of the map at picks.
 * `clan_links` contain mappings from the clan name on the CLOT to imgur links of the clan icon.
 
+The starterfile also needs to be updated. The syntax for the file is as follows:
+* `Division` must precede any division (obviously) where the following character is `A`/`B`/etc (As an example, `Division A`)
+* `Template` must precede any template where the following suffix is the full template name on the clot. (As an example, `TemplateCL15: 3v3 Middle Earth in the Third Age`)
+* There MUST be one division/template per line... Do not combine them.
+```
+Division X
+TemplateA
+TemplateB
+TemplateC
+...
+DivisionY
+TemplateG
+TemplateH
+TemplateI
+...
+```
+
+
+
 ### FinishedGamesCSV
 
 #### Updates per execution

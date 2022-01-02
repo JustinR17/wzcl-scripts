@@ -1,0 +1,48 @@
+Division A
+TemplateCL15: 3v3 Middle Earth in the Third Age
+TemplateCL15: 3v3 Deadman's Rise of Rome
+TemplateCL15: 2v2 Szeurope
+TemplateCL15: 2v2 Strategic MME
+TemplateCL15: 2v2 Biomes of America
+TemplateCL15: 1v1 Timid Lands
+TemplateCL15: 1v1 Aseridith Islands
+TemplateCL15: 1v1 Battle Islands V
+TemplateCL15: 1v1 Strategic Greece
+TemplateCL15: 1v1 Numenor
+TemplateCL15: 1v1 Great Lakes
+Division B
+TemplateCL15: 3v3 Middle Earth in the Third Age
+TemplateCL15: 3v3 Deadman's Rise of Rome
+TemplateCL15: 2v2 Szeurope
+TemplateCL15: 2v2 Strategic MME
+TemplateCL15: 2v2 Biomes of America
+TemplateCL15: 1v1 Timid Lands
+TemplateCL15: 1v1 Aseridith Islands
+TemplateCL15: 1v1 Battle Islands V
+TemplateCL15: 1v1 Strategic Greece
+TemplateCL15: 1v1 Numenor
+TemplateCL15: 1v1 Great Lakes
+Division C
+TemplateCL15: 3v3 Middle Earth in the Third Age
+TemplateCL15: 3v3 Deadman's Rise of Rome
+TemplateCL15: 2v2 Szeurope
+TemplateCL15: 2v2 Strategic MME
+TemplateCL15: 2v2 Biomes of America
+TemplateCL15: 1v1 Timid Lands
+TemplateCL15: 1v1 Aseridith Islands
+TemplateCL15: 1v1 Battle Islands V
+TemplateCL15: 1v1 Strategic Greece
+TemplateCL15: 1v1 Numenor
+TemplateCL15: 1v1 Great Lakes
+Division D
+TemplateCL15: 3v3 Middle Earth in the Third Age
+TemplateCL15: 3v3 Deadman's Rise of Rome
+TemplateCL15: 2v2 Szeurope
+TemplateCL15: 2v2 Strategic MME
+TemplateCL15: 2v2 Biomes of America
+TemplateCL15: 1v1 Timid Lands
+TemplateCL15: 1v1 Aseridith Islands
+TemplateCL15: 1v1 Battle Islands V
+TemplateCL15: 1v1 Strategic Greece
+TemplateCL15: 1v1 Numenor
+TemplateCL15: 1v1 Great Lakes
