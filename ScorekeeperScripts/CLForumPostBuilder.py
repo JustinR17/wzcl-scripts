@@ -49,7 +49,8 @@ tournaments = [
 # If a clan has 3pt penalties (ex. late submission), add their full name in this variable (MUST MATCH CLOT NAMES)
 clans_w_3pt_penalties = ["French Community"]
 
-# If a clan has a long name, add their full name in `abrv_clans` and the shortform in `abrv_clans_shortforms`... The indices MUST match between the two lists
+# If a clan has a long name, add their full name in `abrv_clans` and the shortform in `abrv_clans_shortforms`
+# Note: the indices MUST match between the two lists (ex. first element in either list matches same clan)
 abrv_clans = [
     "Fifth Column Confederation",
     "[V.I.W] Very Important Weirdos",
@@ -70,6 +71,22 @@ abrv_clans_shortforms = [
     "Hodopian Dynasty",
     "Grandmasters"
 ]
+
+# Imgur links for templates to show on the forums... Make sure template name matches the clot names (also copied above in `tournaments`)
+# Note: we use imgur as the links are short (link characters count in WZ forum character limit)
+template_links = {
+  "CL15: 3v3 Middle Earth in the Third Age": "https://imgur.com/pPYvIov",
+  "CL15: 3v3 Deadman's Rise of Rome": "https://imgur.com/bB4ex5B",
+  "CL15: 2v2 Szeurope": "https://imgur.com/Nqvvx3Q",
+  "CL15: 2v2 Strategic MME": "https://imgur.com/7PJHjkF",
+  "CL15: 2v2 Biomes of America": "https://imgur.com/PawtFUG",
+  "CL15: 1v1 Timid Lands": "https://imgur.com/R5e3lyn",
+  "CL15: 1v1 Aseridith Islands": "https://imgur.com/GHxmTRo",
+  "CL15: 1v1 Battle Islands V": "https://imgur.com/UVDYfG0",
+  "CL15: 1v1 Strategic Greece": "https://imgur.com/SPudXtE",
+  "CL15: 1v1 Numenor": "https://imgur.com/l2iq2zR",
+  "CL15: 1v1 Great Lakes": "https://imgur.com/oAe8HTv"
+}
 
 # Imgur links for clans to show on the forums... Make sure clan name matches the clot names
 # Note: we use imgur as the links are short (link characters count in WZ forum character limit)
@@ -110,6 +127,34 @@ clan_links = {
 ###### DO NOT CHANGE WHAT IS BELOW ######
 #########################################
 # pls
+
+#
+### Constants
+#
+
+# Total games by # of clans (= P choose 2) -- P := # of players per template
+TOTAL_GAMES = {
+  3: 33,
+  4: 66,
+  5: 110,
+  6: 165,
+  7: 231,
+  8: 308,
+  9: 396,
+  10: 495
+}
+
+# Total points by # of clans (= 2*5*(P choose 2) + 3*4*(P choose 2) + 6*3*(P choose 2)) -- X := # of games per template
+TOTAL_POINTS = {
+  3: 120,
+  4: 240,
+  5: 400,
+  6: 600,
+  7: 840,
+  8: 1120,
+  9: 1440,
+  10: 1800
+}
 
 
 ############################
@@ -360,14 +405,14 @@ def writeForumPostForDivision(division_game_list, division_tournament_standings,
     else:
       clan_name = clan
 
-    total_points = 240 if len(division_standings.items()) == 7 else 200
+    total_points = TOTAL_POINTS[len(division_standings.items())] / len(division_standings.items()) * 2
     forum_post.write("{}. [img]{}[/img] {} - {:2d}W - {:2d}L - {:3d}/{:3d} pts, {:3d} MP, {:5.1f}% PC, {:5.1f}% GW\n".format(idx, clan_links[clan], (clan_name + (" " * longest_clan_name))[0:longest_clan_name], standings["wins"], standings["losses"], clan_win_points, (standings["winPoints"]+standings["lossPoints"]), total_points - standings["lossPoints"], round(divide(clan_win_points,(standings["winPoints"]+standings["lossPoints"])) * 100, 1), round(divide(standings["wins"],(standings["wins"]+standings["losses"])) * 100, 1)))
     idx += 1
 
   forum_post.write("[/code]\n\n")
 
-  total_games = 231 if len(division_standings.keys()) == 7 else 165
-  total_points = 840 if len(division_standings.items()) == 7 else 600
+  total_games = TOTAL_GAMES[len(division_standings.items())]
+  total_points = TOTAL_POINTS[len(division_standings.items())]
 
   forum_post.write("[b]% of games finished:[/b] {}\n".format(round((division_finished["games"] / total_games) * 100, 1)))
   forum_post.write("[b]% of points finished:[/b] {}\n".format(round((division_finished["points"] / total_points) * 100, 1)))
