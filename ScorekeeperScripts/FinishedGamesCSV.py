@@ -195,7 +195,7 @@ def writeDataFile(game_list):
 
 if len(sys.argv) < 2 or sys.argv[1] != "run":
   print("> Please pass in 'run' as an argument to run the program.")
-  print("> example: python LFScript.py run")
+  print("> example: python FinishedGamesCSV.py run")
   sys.exit(0)
 
 # Get current CL game info from CLOT page (read-only)
