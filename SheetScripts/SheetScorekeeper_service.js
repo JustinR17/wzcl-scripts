@@ -113,7 +113,7 @@ async function updateSheet(division, games, sheet, boots) {
   let template;
   let formats = ["1v1", "2v2", "3v3"];
   for (let row = 0; row < clanGamesWO.length; row++) {
-    if (clanGamesRO[row][0] && formats.includes(clanGamesRO[row][0])) {
+    if (clanGamesRO[row] && formats.includes(clanGamesRO[row][0])) {
       // new template
       template = clanGamesRO[row][0] + " " + clanGamesRO[row][1];
       tournaments.push(template);
