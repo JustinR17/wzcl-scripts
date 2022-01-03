@@ -172,7 +172,7 @@ async function updateSheet(division, games, sheet, boots) {
           reject(err);
           // [END_EXCLUDE]
         } else {
-          console.log(`${result.updatedCells} cells updated.`);
+          console.log(`${result.data.updatedCells} cells updated.`);
           // [START_EXCLUDE silent]
           resolve(result);
           // [END_EXCLUDE]
@@ -249,7 +249,7 @@ async function updateSheet(division, games, sheet, boots) {
           reject(err);
           // [END_EXCLUDE]
         } else {
-          console.log(`${result.updatedCells} cells updated.`);
+          console.log(`${result.data.updatedCells} cells updated.`);
           // [START_EXCLUDE silent]
           resolve(result);
           // [END_EXCLUDE]
@@ -291,7 +291,7 @@ async function updateBoots(boots, sheet) {
           reject(err);
           // [END_EXCLUDE]
         } else {
-          console.log(`${result.updatedCells} cells updated.`);
+          console.log(`${result.data.updatedCells} cells updated.`);
           // [START_EXCLUDE silent]
           resolve(result);
           // [END_EXCLUDE]
