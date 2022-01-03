@@ -56,12 +56,15 @@ A `private.json` file will also need to be created which will allow the script t
 }
 ```
 
-* `type` does not need to be changed (denotes that a service account will be used)
 * `project_id` is the ID of the Google Cloud Platform project created containing the service account
+* The following does not need to be changed:
+    * `type`
+    * `auth_uri`
+    * `token_uri`
+    * `auth_provider_x509_cert_url`
 * The remaining credentials can all be taken from the GCP project
 
-
-## How to update the scripts
+## Updating & running the scripts
 
 All of the scripts here need to be updated once at the beginning of clan league. This generally just involves updating the list of templates/tournaments and clans.
 
@@ -71,6 +74,11 @@ The following should be updated once a clan league:
 * `API_TO_SHEET_CLANS` denotes a mapping from the actual clan name (shown on the WZClot & WZ) to the clan name in the spreadsheet. These must match exactly.
 * `SSID` in the `.env` file denotes the spreadsheet ID (in the link of the spreadsheet)
 * `CLOT_URL` in the `.env` file denotes the URL to the WZClot clan league page (just the ID needs to be updated)
+
+Run the script with the following command:
+```bash
+npm start
+```
 
 ### InitializeSheets.gs
 

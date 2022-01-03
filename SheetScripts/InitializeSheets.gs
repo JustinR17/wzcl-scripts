@@ -17,12 +17,15 @@ function readRosters() {
   var divAClans = sheet.getRange("A2:U2").getValues();
   var divARosters = sheet.getRange("A4:U12").getValues();
   var divARostersLinks = sheet.getRange("A4:U12").getRichTextValues();
+
   var divBClans = sheet.getRange("A14:U14").getValues();
   var divBRosters = sheet.getRange("A16:U24").getValues();
   var divBRostersLinks = sheet.getRange("A16:U24").getRichTextValues();
+
   var divCClans = sheet.getRange("A26:U26").getValues();
   var divCRosters = sheet.getRange("A28:U36").getValues();
   var divCRostersLinks = sheet.getRange("A28:U36").getRichTextValues();
+  
   var divDClans = sheet.getRange("A38:U38").getValues();
   var divDRosters = sheet.getRange("A40:U48").getValues();
   var divDRostersLinks = sheet.getRange("A40:U48").getRichTextValues();
