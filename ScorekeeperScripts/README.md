@@ -16,6 +16,27 @@ Note: if you use Python a lot externally, it might be smart to create a virtual 
 
 If you already have a virtual environment or are fine with downloading the dependencies on the global Python, skip this section.
 
+If you are running python with `python3` instead of just `python`, make sure to update the command in step 2) accordingly.
+1) Enter into the current directory in your terminal
+2) Create a virtual environment by running:
+```bash
+python -m venv
+```
+This will create a virtual environment at the current directory and contain all relevant files in `venv`
+
+3) Activate the virtual environment:
+
+    a) On windows, run:
+    ```bash
+    venv/Scripts/activate.bat
+    ```
+    b) On Unix (ex. bash) or MacOS, run:
+    ```bash
+    source venv/bin/activate
+    ```
+4) Python should now point to the new virtual environment instead of the global executable
+
+
 ### Installing the dependencies
 
 There is only a single command to install all of the dependencies:
@@ -55,7 +76,7 @@ TemplateA
 TemplateB
 TemplateC
 ...
-DivisionY
+Division Y
 TemplateG
 TemplateH
 TemplateI
