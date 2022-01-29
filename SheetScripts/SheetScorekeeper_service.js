@@ -97,12 +97,22 @@ async function updateSheet(division, games, sheet, boots) {
       range: `GL${division}!A1:E255`,
     })
   ).data.values;
-  let clanGamesWO = (
+
+  // Need to extract specific columns to avoid expensive (useless) formula updates in sheet
+  let leftClanGamesWO = (
     await sheet.spreadsheets.values.get({
       auth: jwtClient,
       spreadsheetId: spreadsheetId,
       valueRenderOption: "FORMULA",
-      range: `GL${division}!A1:E255`,
+      range: `GL${division}!B1:B255`,
+    })
+  ).data.values;
+  let rightClanGamesWO = (
+    await sheet.spreadsheets.values.get({
+      auth: jwtClient,
+      spreadsheetId: spreadsheetId,
+      valueRenderOption: "FORMULA",
+      range: `GL${division}!D1:E255`,
     })
   ).data.values;
 
@@ -112,17 +122,25 @@ async function updateSheet(division, games, sheet, boots) {
   //! Start with updating wins/losses & links for clans
   let template;
   let formats = ["1v1", "2v2", "3v3"];
-  for (let row = 0; row < clanGamesWO.length; row++) {
+  for (let row = 0; row < clanGamesRO.length; row++) {
     if (clanGamesRO[row] && formats.includes(clanGamesRO[row][0])) {
       // new template
       template = clanGamesRO[row][0] + " " + clanGamesRO[row][1];
       tournaments.push(template);
-      console.log("Starting to process: " + template);
-    } else if (template) {
+      console.log("\tStarting to process: " + template);
+
+      // Check if the CLOT tournament has started
+      // If tourney has started, then this means the names do not match
       if (!templateGames[template]) {
-        console.log(`Could not find ${template}`);
+        console.log(`\t\tCould not find ${template}`);
+      }
+    } else if (template) {
+      // If tourney has not started, then do not process rows
+      if (!templateGames[template]) {
         continue;
       }
+
+      // Find applicable game
       let game = templateGames[template].find(
         (obj) =>
           (API_TO_SHEET_CLANS[obj.winners.name] === clanGamesRO[row][0] &&
@@ -139,29 +157,29 @@ async function updateSheet(division, games, sheet, boots) {
           }
 
           if (clanGamesRO[row][0] === API_TO_SHEET_CLANS[game.winners.name]) {
-            clanGamesWO[row][1] = "WON";
-            clanGamesWO[row][3] = "LOST";
+            leftClanGamesWO[row][0] = "WON";
+            rightClanGamesWO[row][0] = "LOST";
           } else {
-            clanGamesWO[row][1] = "LOST";
-            clanGamesWO[row][3] = "WON";
+            leftClanGamesWO[row][0] = "LOST";
+            rightClanGamesWO[row][0] = "WON";
           }
         }
 
         if (!clanGamesRO[row][4]) {
-          clanGamesWO[row][4] = game.link;
+          rightClanGamesWO[row][1] = game.link;
         }
       }
     }
   }
 
-  // Update cells
+  // Update left column (just contains updated WON/LOST values)
   await new Promise((resolve, reject) => {
     sheet.spreadsheets.values.update(
       {
         auth: jwtClient,
         spreadsheetId: spreadsheetId,
-        range: `GL${division}!A1:E255`,
-        resource: { values: clanGamesWO },
+        range: `GL${division}!B1:B255`,
+        resource: { values: leftClanGamesWO },
         valueInputOption: "USER_ENTERED",
       },
       (err, result) => {
@@ -172,7 +190,7 @@ async function updateSheet(division, games, sheet, boots) {
           reject(err);
           // [END_EXCLUDE]
         } else {
-          console.log(`${result.data.updatedCells} cells updated.`);
+          console.log(`Successfully updated the left column of clans`);
           // [START_EXCLUDE silent]
           resolve(result);
           // [END_EXCLUDE]
@@ -180,6 +198,33 @@ async function updateSheet(division, games, sheet, boots) {
       }
     );
   });
+  // Update right columns (WON/LOST vaues & game links)
+  await new Promise((resolve, reject) => {
+    sheet.spreadsheets.values.update(
+      {
+        auth: jwtClient,
+        spreadsheetId: spreadsheetId,
+        range: `GL${division}!D1:E255`,
+        resource: { values: rightClanGamesWO },
+        valueInputOption: "USER_ENTERED",
+      },
+      (err, result) => {
+        if (err) {
+          // Handle error
+          console.log(err);
+          // [START_EXCLUDE silent]
+          reject(err);
+          // [END_EXCLUDE]
+        } else {
+          console.log(`Successfully updated the right columns of clans`);
+          // [START_EXCLUDE silent]
+          resolve(result);
+          // [END_EXCLUDE]
+        }
+      }
+    );
+  });
+
 
   //! Update individual player stats now
   let playerTablesRO = (
@@ -189,22 +234,22 @@ async function updateSheet(division, games, sheet, boots) {
       range: `GL${division}!O3:AD255`,
     })
   ).data.values;
+  // Avoid overwriting unchanging fomula values (ie clans) as these are expensive to recompute
   let playerTablesWO = (
     await sheet.spreadsheets.values.get({
       auth: jwtClient,
       spreadsheetId: spreadsheetId,
       valueRenderOption: "FORMULA",
-      range: `GL${division}!O3:AD255`,
+      range: `GL${division}!Y3:Z255`,
     })
   ).data.values;
 
   let tindex = 0;
 
   for (let row = 0; row < playerTablesRO.length; row++) {
-    if (
-      playerTablesRO[row][0] === "CLAN" &&
-      playerTablesRO[row][1] === "PLAYERS"
-    ) {
+    // Update template index if start of new table
+    // else check if there is a player on the slot (prevents empty rows or overall clan results)
+    if (playerTablesRO[row][0] === "CLAN" && playerTablesRO[row][1] === "PLAYERS") {
       tindex++;
     } else if (playerTablesRO[row][13]) {
       // Skip row check if tournament has not started
@@ -217,6 +262,7 @@ async function updateSheet(division, games, sheet, boots) {
       if (playerTablesRO[row][14]) pids.push(playerTablesRO[row][14]);
       if (playerTablesRO[row][15]) pids.push(playerTablesRO[row][15]);
 
+      // Find results of the specific team in the tournament
       let result = { wins: 0, losses: 0 };
       for (const game of templateGames[tournaments[tindex]]) {
         if (!game.isFinished) continue;
@@ -227,8 +273,8 @@ async function updateSheet(division, games, sheet, boots) {
         }
       }
       
-      playerTablesWO[row][10] = result.wins;
-      playerTablesWO[row][11] = result.losses;
+      playerTablesWO[row][0] = result.wins;
+      playerTablesWO[row][1] = result.losses;
     }
   }
 
@@ -237,7 +283,7 @@ async function updateSheet(division, games, sheet, boots) {
       {
         auth: jwtClient,
         spreadsheetId: spreadsheetId,
-        range: `GL${division}!O3:AD253`,
+        range: `GL${division}!Y3:Z253`,
         resource: { values: playerTablesWO },
         valueInputOption: "USER_ENTERED",
       },
@@ -249,7 +295,7 @@ async function updateSheet(division, games, sheet, boots) {
           reject(err);
           // [END_EXCLUDE]
         } else {
-          console.log(`${result.data.updatedCells} cells updated.`);
+          console.log(`Successfully updated the team results.`);
           // [START_EXCLUDE silent]
           resolve(result);
           // [END_EXCLUDE]
@@ -260,10 +306,24 @@ async function updateSheet(division, games, sheet, boots) {
 }
 
 async function updateBoots(boots, sheet) {
+  let currentBootsRO = (
+    await sheet.spreadsheets.values.get({
+      auth: jwtClient,
+      spreadsheetId: spreadsheetId,
+      range: `Boots!A2:G200`
+    })
+  ).data.values;
+
+  // Find the next row to add to
+  let i = 0;
+  while (currentBootsRO && currentBootsRO[i] && currentBootsRO[i][0]) {
+    i++;
+  }
+  let currentBootsWO = [];
+
   boots.sort((a, b) => (a.date < b.date ? -1 : 1));
-  let bootSheetRows = [];
   for (let idx = 0; idx < boots.length; idx++) {
-    bootSheetRows.push([
+    currentBootsWO.push([
       boots[idx].date,
       boots[idx].division,
       boots[idx].template,
@@ -279,8 +339,8 @@ async function updateBoots(boots, sheet) {
       {
         auth: jwtClient,
         spreadsheetId: spreadsheetId,
-        range: `Boots!A2:G${boots.length + 2}`,
-        resource: { values: bootSheetRows },
+        range: `Boots!A${2+i}:G${2+i+boots.length}`,
+        resource: { values: currentBootsWO },
         valueInputOption: "USER_ENTERED",
       },
       (err, result) => {
@@ -291,7 +351,7 @@ async function updateBoots(boots, sheet) {
           reject(err);
           // [END_EXCLUDE]
         } else {
-          console.log(`${result.data.updatedCells} cells updated.`);
+          console.log(`Successfully updated the boots table with ${boots.length} new boots.`);
           // [START_EXCLUDE silent]
           resolve(result);
           // [END_EXCLUDE]
@@ -301,6 +361,7 @@ async function updateBoots(boots, sheet) {
   });
 }
 
+// Useful function to gather boots without updating the GL sheets
 function manuallyAddBoots(boots, games) {
   for (const [division, templates] of Object.entries(games)) {
     for (const [template, games] of Object.entries(templates)) {
@@ -318,12 +379,15 @@ function manuallyAddBoots(boots, games) {
 async function updateAllSheets(auth) {
   let sheet = google.sheets({ version: "v4", auth });
 
+  // apiWebScrape uses the newest data on the clot
+  // mockWebScrape mainly used for testing... uses stored cl.json data that apiWebScrape updates
   let games = await apiWebScrape();
   // let games = await mockWebScrape();
 
   let boots = [];
 
   for (const division of DIVISIONS) {
+    console.log(`Updating sheet for division ${division}`);
     await updateSheet(division, games, sheet, boots);
   }
 

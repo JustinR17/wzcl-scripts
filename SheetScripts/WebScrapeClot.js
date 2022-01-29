@@ -41,10 +41,10 @@ async function webScrapeClot() {
                 if (table.attribs.id || table.attribs.class == null || table.attribs.class.indexOf("clot_table") == -1) continue;
                 
                 // All remaining tables reflect CL game tables to parse
-                
+                //! Update the indices based on the template name structures
                 let tablerows = table.children[0].children;
                 let division = tablerows[0].children[0].children[0].data.substring(0, 10);
-                let template = tablerows[0].children[0].children[0].data.substring(13);
+                let template = tablerows[0].children[0].children[0].data.substring(19);
 
                 if (template.includes("Deadman's")) {
                     template = "3v3 Deadman's RoR";
