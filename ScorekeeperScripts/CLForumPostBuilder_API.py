@@ -76,17 +76,17 @@ abrv_clans_shortforms = [
 # Imgur links for templates to show on the forums... Make sure template name matches the clot names (also copied above in `tournaments`)
 # Note: we use imgur as the links are short (link characters count in WZ forum character limit)
 template_links = {
-  "CL15: 3v3 Middle Earth in the Third Age": "https://imgur.com/pPYvIov",
-  "CL15: 3v3 Deadman's Rise of Rome": "https://imgur.com/bB4ex5B",
-  "CL15: 2v2 Szeurope": "https://imgur.com/Nqvvx3Q",
-  "CL15: 2v2 Strategic MME": "https://imgur.com/7PJHjkF",
-  "CL15: 2v2 Biomes of America": "https://imgur.com/PawtFUG",
-  "CL15: 1v1 Timid Lands": "https://imgur.com/R5e3lyn",
-  "CL15: 1v1 Aseridith Islands": "https://imgur.com/GHxmTRo",
-  "CL15: 1v1 Battle Islands V": "https://imgur.com/UVDYfG0",
-  "CL15: 1v1 Strategic Greece": "https://imgur.com/SPudXtE",
-  "CL15: 1v1 Numenor": "https://imgur.com/l2iq2zR",
-  "CL15: 1v1 Great Lakes": "https://imgur.com/oAe8HTv"
+  "CL15: 3v3 Middle Earth in the Third Age": "https://imgur.com/pPYvIov.png",
+  "CL15: 3v3 Deadman's Rise of Rome": "https://imgur.com/bB4ex5B.png",
+  "CL15: 2v2 Szeurope": "https://imgur.com/Nqvvx3Q.png",
+  "CL15: 2v2 Strategic MME": "https://imgur.com/7PJHjkF.png",
+  "CL15: 2v2 Biomes of America": "https://imgur.com/PawtFUG.png",
+  "CL15: 1v1 Timid Lands": "https://imgur.com/R5e3lyn.png",
+  "CL15: 1v1 Aseridith Islands": "https://imgur.com/GHxmTRo.png",
+  "CL15: 1v1 Battle Islands V": "https://imgur.com/UVDYfG0.png",
+  "CL15: 1v1 Strategic Greece": "https://imgur.com/SPudXtE.png",
+  "CL15: 1v1 Numenor": "https://imgur.com/l2iq2zR.png",
+  "CL15: 1v1 Great Lakes": "https://imgur.com/oAe8HTv.png"
 }
 
 # Imgur links for clans to show on the forums... Make sure clan name matches the clot names
@@ -96,7 +96,7 @@ clan_links = {
   "Fifth Column Confederation": "https://i.imgur.com/mn8RPhZ.png",
   "HAWKS": "https://i.imgur.com/1xgfJ4G.png",
   "MASTER Clan": "https://i.imgur.com/uHxS00R.png",
-  "ONE!": "https://imgur.com/MrRBTDH",
+  "ONE!": "https://imgur.com/MrRBTDH.png",
   "Lu Fredd": "https://i.imgur.com/0gujLpK.png",
   "[WG]": "https://i.imgur.com/DhsEbOC.png",
 
@@ -117,9 +117,9 @@ clan_links = {
   "Varangian Guard": "https://i.imgur.com/xxS0mba.png",
 
   "Polish Eagles": "https://i.imgur.com/pzZVaEU.png",
-  "GRANDMASTER Clan": "https://imgur.com/AD8wUnD",
+  "GRANDMASTER Clan": "https://imgur.com/AD8wUnD.png",
   "The Boiz Army": "https://i.imgur.com/vUBb9GA.png",
-  "Partisans": "https://imgur.com/5UigdKO",
+  "Partisans": "https://imgur.com/5UigdKO.png",
   "VS": "https://i.imgur.com/tTPt5ms.png"
 }
 
