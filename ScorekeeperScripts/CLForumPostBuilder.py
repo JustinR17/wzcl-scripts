@@ -385,7 +385,7 @@ def writeForumPostForDivision(division_game_list, division_tournament_standings,
   forum_post.write("[b]Horserace:[/b]\n[code]\n")
 
   idx = 1
-  sorted_division_standings = sorted(division_standings.items(), reverse=True, key= lambda e: divide(e[1]["winPoints"], (e[1]["winPoints"]+e[1]["lossPoints"])))
+  sorted_division_standings = sorted(division_standings.items(), key= lambda e: (-divide(e[1]["winPoints"] - (3 if e[0] in clans_w_3pt_penalties else 0), e[1]["winPoints"]+e[1]["lossPoints"]), -(e[1]["winPoints"] - (3 if e[0] in clans_w_3pt_penalties else 0))))
 
   longest_clan_name = 0
   for clan in sorted_division_standings:
