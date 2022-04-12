@@ -38,7 +38,7 @@ function updateDivisionStandings(division) {
         if (!(standingsData[0][j+1] in clans)) {
           continue;
         }
-        standingsData[i][j + 9] = clans[standingsData[0][j+9]].pc;
+        standingsData[i][j + 9] = clans[standingsData[0][j+9]].tp / Math.max(clans[standingsData[0][j+9]].pc, 1) * 100;
         percentCompletedData[i][j] = clans[percentCompletedData[0][j]].pc / 2.4;
       }
       
@@ -56,3 +56,29 @@ function updateAllDivisionStandings() {
     updateDivisionStandings(div);
   }
 }
+
+function patchPointsContested() {
+  for (const div of divisions) {
+    Logger.log(`Running Division ${div}`);
+    var sheet = SpreadsheetApp.getActive().getSheetByName('DATA_' + div);
+    var standingsRange = sheet.getRange("X36:AM101");
+    var standingsData = standingsRange.getValues();
+      
+    for (let i = 1; i < standingsData.length; i++) {
+      if (new String(standingsData[i][0]).trim() != "") {
+
+        for (let j = 1; j < 8; j++) {
+          if (new String(standingsData[i][j]).trim() == "") {
+            Logger.log(`Skipping ${i}-${j}`);
+            continue;
+          }
+
+          standingsData[i][j+8] = Number(standingsData[i][j]) / Math.max(Number(standingsData[i][j+8]), 1) * 100
+        }
+      }
+    }
+    
+    standingsRange.setValues(standingsData);
+  }
+}
+
