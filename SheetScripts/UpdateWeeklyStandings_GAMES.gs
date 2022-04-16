@@ -1,14 +1,4 @@
 var divisions = ["A", "B", "C", "D"];
-var TOTAL_POINTS = {
-  3: 0.80,
-  4: 1.20,
-  5: 1.60,
-  6: 2.00,
-  7: 2.40,
-  8: 2.80,
-  9: 3.20,
-  10: 3.60
-};
 
 function updateDivisionStandings(division) {
   var sheet = SpreadsheetApp.getActive().getSheetByName('DATA_' + division);
@@ -25,7 +15,7 @@ function updateDivisionStandings(division) {
     if (clanRow[0].trim() == "") {
       continue;
     }
-    clans[clanRow[0].trim()] = {tp: clanRow[6], pc: clanRow[8], wr: clanRow[13], tpc: clanRow[15]};
+    clans[clanRow[0].trim()] = {tp: clanRow[6], pc: clanRow[8], wr: clanRow[13], g: clanRow[9]};
   }
   let clanCount = Object.keys(clans).length;
   
@@ -52,7 +42,7 @@ function updateDivisionStandings(division) {
         }
         standingsData[i][j + 9] = clans[standingsData[0][j+1]].pc;
         standingsData[i][j + 17] = clans[standingsData[0][j+1]].wr;
-        percentCompletedData[i][j] = clans[standingsData[0][j+1]].tpc / TOTAL_POINTS[clanCount];
+        percentCompletedData[i][j] = clans[standingsData[0][j+1]].g / ((clanCount-1)*templates.length) * 100.0;
       }
       
       break;
@@ -87,6 +77,17 @@ function patchPointsContested() {
     if (new String(standingsData[0][7]).trim() == "") {
       // Patch the % completed
       // Total points by # of clans (= 2*5*(P choose 2) + 3*4*(P choose 2) + 6*3*(P choose 2)) -- X := # of games per template
+      let TOTAL_POINTS = {
+        3: 0.80,
+        4: 1.20,
+        5: 1.60,
+        6: 2.00,
+        7: 2.40,
+        8: 2.80,
+        9: 3.20,
+        10: 3.60
+      };
+
       clanCount = 0;
       for (let i = 1; i < 8; i++) {
         if (new String(standingsData[0][i]).trim() != "") clanCount++;

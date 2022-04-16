@@ -108,3 +108,13 @@ The following probably doesn't need to be updated every clan league:
 * `divisions` likely does not need to be changed
 
 Run the script (in `Apps Script`) by calling the `updateAllDivisionStandings()` function.
+
+
+### UpdateWeeklyStandings_GAMES.gs
+
+This script is identical to `UpdateWeeklyStandings.gs` with the exception of updating the calculation for `Percent Completed`. Originally, the points were used to determine this metric, but this script changes the format to use the number of games completed instead.
+
+The following probably doesn't need to be updated every clan league:
+* `divisions` likely does not need to be changed
+
+Run the script (in `Apps Script`) by calling the `updateAllDivisionStandings()` function.
