@@ -20,7 +20,7 @@ If you are running python with `python3` instead of just `python`, make sure to 
 1) Enter into the current directory in your terminal
 2) Create a virtual environment by running:
 ```bash
-python -m venv
+python -m venv venv
 ```
 This will create a virtual environment at the current directory and contain all relevant files in `venv`
 
@@ -62,6 +62,7 @@ Note: the updates for each variant are identical.
 * `CLOT_PAGE_URL` denotes the URL for the wzclot page. Just the ID needs to be updated
 * `divisions` likely doesn't need to be changed, but just needs to match the CLOT divisions
 * `tournaments` need to be updated to the exact name under the CLOT
+* `point_penalties` need to be updated as a mapping of the full clan name to the integer point penalty
 * `abrv_clans`/`abrv_clans_shortforms` can be updated to your personal preference. Look in the script for details.
 * `template_links` contain mappings from the template name on the CLOT to imgur links of the map at picks.
 * `clan_links` contain mappings from the clan name on the CLOT to imgur links of the clan icon.

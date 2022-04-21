@@ -47,8 +47,12 @@ tournaments = [
     "CL15: 1v1 Great Lakes"
 ]
 
-# If a clan has 3pt penalties (ex. late submission), add their full name in this variable (MUST MATCH CLOT NAMES)
-clans_w_3pt_penalties = ["French Community"]
+# If a clan has a point penalty (ex. late submission), add their full name in this dict with the associated pts (MUST MATCH CLOT NAMES)
+# ex { "CLAN": 3 }
+point_penalties = {
+  "French Community": 3,
+  "[V.I.W] Very Important Weirdos": 5,
+}
 
 # If a clan has a long name, add their full name in `abrv_clans` and the shortform in `abrv_clans_shortforms`
 # Note: the indices MUST match between the two lists (ex. first element in either list matches same clan)
@@ -412,7 +416,7 @@ def writeForumPostForDivision(division_game_list, division_tournament_standings,
   forum_post.write("[b]Horserace:[/b]\n[code]\n")
 
   idx = 1
-  sorted_division_standings = sorted(division_standings.items(), key= lambda e: (-divide(e[1]["winPoints"] - (3 if e[0] in clans_w_3pt_penalties else 0), e[1]["winPoints"]+e[1]["lossPoints"]), -(e[1]["winPoints"] - (3 if e[0] in clans_w_3pt_penalties else 0))))
+  sorted_division_standings = sorted(division_standings.items(), key= lambda e: (-divide(e[1]["winPoints"] - point_penalties.get(e[0], 0), e[1]["winPoints"]+e[1]["lossPoints"]), -(e[1]["winPoints"] - point_penalties.get(e[0], 0))))
 
   longest_clan_name = 0
   for clan in sorted_division_standings:
@@ -424,15 +428,13 @@ def writeForumPostForDivision(division_game_list, division_tournament_standings,
         longest_clan_name = len(clan[0])
 
   for clan, standings in sorted_division_standings:
-    clan_win_points = standings["winPoints"]
-    if clan in clans_w_3pt_penalties:
-      clan_win_points -= 3
+    clan_win_points = standings["winPoints"] - point_penalties.get(clan, 0)
     if clan in abrv_clans:
       clan_name = abrv_clans_shortforms[abrv_clans.index(clan)]
     else:
       clan_name = clan
 
-    total_points = TOTAL_POINTS[len(division_standings.items())] / len(division_standings.items()) * 2 + (-3 if clan in clans_w_3pt_penalties else 0)
+    total_points = TOTAL_POINTS[len(division_standings.items())] / len(division_standings.items()) * 2 - point_penalties.get(clan, 0)
     forum_post.write("{}. [img]{}[/img] {} - {:2d}W - {:2d}L - {:3d}/{:3d} pts, {:3.0f} MP, {:5.1f}% PC, {:5.1f}% GW\n".format(idx, clan_links[clan], (clan_name + (" " * longest_clan_name))[0:longest_clan_name], standings["wins"], standings["losses"], clan_win_points, (standings["winPoints"]+standings["lossPoints"]), total_points - standings["lossPoints"], round(divide(clan_win_points,(standings["winPoints"]+standings["lossPoints"])) * 100, 1), round(divide(standings["wins"],(standings["wins"]+standings["losses"])) * 100, 1)))
     idx += 1
 
