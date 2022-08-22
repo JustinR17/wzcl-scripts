@@ -15,7 +15,7 @@ The following should be updated somewhere once a clan league
 */
 
 // UPDATE THE spreadsheet ID in the .env file... This is the ID in the URL
-const spreadsheetId = process.env.SSID;
+const spreadsheetId = process.env.CL15_TEST_SSID;
 
 // This is a mapping from the clans true name (on wz and the clot) to the name normal name in the spreadsheet
 // I separate divisions with an empty line, but this is purely visual and has no purpose
@@ -104,7 +104,7 @@ async function updateSheet(division, games, sheet, boots) {
       auth: jwtClient,
       spreadsheetId: spreadsheetId,
       valueRenderOption: "FORMULA",
-      range: `GL${division}!B1:B255`,
+      range: `GL${division}!B1:B254`,
     })
   ).data.values;
   let rightClanGamesWO = (
@@ -112,7 +112,7 @@ async function updateSheet(division, games, sheet, boots) {
       auth: jwtClient,
       spreadsheetId: spreadsheetId,
       valueRenderOption: "FORMULA",
-      range: `GL${division}!D1:E255`,
+      range: `GL${division}!D1:E254`,
     })
   ).data.values;
 
@@ -138,6 +138,15 @@ async function updateSheet(division, games, sheet, boots) {
       // If tourney has not started, then do not process rows
       if (!templateGames[template]) {
         continue;
+      }
+      
+      if (leftClanGamesWO[row] && leftClanGamesWO[row].length != 1) {
+        // ensure arrays have proper length
+        leftClanGamesWO[row] = [''];
+      }
+      if (rightClanGamesWO[row] && rightClanGamesWO[row].length != 2) {
+        // ensure arrays have proper length
+        rightClanGamesWO[row] = ['',''];
       }
 
       // Find applicable game
@@ -178,7 +187,7 @@ async function updateSheet(division, games, sheet, boots) {
       {
         auth: jwtClient,
         spreadsheetId: spreadsheetId,
-        range: `GL${division}!B1:B255`,
+        range: `GL${division}!B1:B254`,
         resource: { values: leftClanGamesWO },
         valueInputOption: "USER_ENTERED",
       },
@@ -204,7 +213,7 @@ async function updateSheet(division, games, sheet, boots) {
       {
         auth: jwtClient,
         spreadsheetId: spreadsheetId,
-        range: `GL${division}!D1:E255`,
+        range: `GL${division}!D1:E254`,
         resource: { values: rightClanGamesWO },
         valueInputOption: "USER_ENTERED",
       },
@@ -226,12 +235,13 @@ async function updateSheet(division, games, sheet, boots) {
   });
 
 
+
   //! Update individual player stats now
   let playerTablesRO = (
     await sheet.spreadsheets.values.get({
       auth: jwtClient,
       spreadsheetId: spreadsheetId,
-      range: `GL${division}!O3:AD255`,
+      range: `GL${division}!O3:AD253`,
     })
   ).data.values;
   // Avoid overwriting unchanging fomula values (ie clans) as these are expensive to recompute
@@ -240,7 +250,7 @@ async function updateSheet(division, games, sheet, boots) {
       auth: jwtClient,
       spreadsheetId: spreadsheetId,
       valueRenderOption: "FORMULA",
-      range: `GL${division}!Y3:Z255`,
+      range: `GL${division}!Y3:Z253`,
     })
   ).data.values;
 
@@ -413,4 +423,3 @@ jwtClient.authorize(async (err, tokens) => {
     await updateAllSheets();
   }
 });
-

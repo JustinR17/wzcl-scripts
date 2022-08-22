@@ -1,22 +1,21 @@
 {
-    "name": "warzone-clan-league-sheet-scripts",
-    "description": "The scorekeeping scripts allow for CL spreadsheets to be updated using the Warzone API & B's WZClot",
-    "author": "JustinR17",
-    "url": "https://github.com/JustinR17/wzcl-scripts",
-    "version": "1.0.0",
-    "private": true,
-    "dependencies": {
-      "axios": "^0.21.1",
-      "cheerio": "^1.0.0-rc.10",
-      "dotenv": "^10.0.0",
-      "googleapis": "^39.0.0"
-    },
-    "devDependencies": {},
-    "engines": {
-      "node": ">=6.4.0"
-    },
-    "scripts": {
-      "start": "node SheetScorekeeper_service.js"
-    }
+  "name": "warzone-clan-league-sheet-scripts",
+  "description": "The scorekeeping scripts allow for CL spreadsheets to be updated using the Warzone API & B's WZClot",
+  "author": "JustinR17",
+  "url": "https://github.com/JustinR17/wzcl-scripts",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.10",
+    "dotenv": "^10.0.0",
+    "googleapis": "^39.0.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=6.4.0"
+  },
+  "scripts": {
+    "start": "node SheetScorekeeper_service.js"
+  }
 }
-  
