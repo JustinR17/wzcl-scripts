@@ -16,6 +16,8 @@ The following should be updated somewhere once a clan league
 
 // UPDATE THE spreadsheet ID in the .env file... This is the ID in the URL
 const spreadsheetId = process.env.CL15_TEST_SSID;
+//CL16_SSID
+//CL15_TEST_SSID
 
 // This is a mapping from the clans true name (on wz and the clot) to the name normal name in the spreadsheet
 // I separate divisions with an empty line, but this is purely visual and has no purpose
