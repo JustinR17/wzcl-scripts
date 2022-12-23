@@ -1,10 +1,32 @@
 
-var templates = ["Deadman's RoR", "Middle Earth", "Szeurope", "Strategic MME", "Biomes of America", "Timid Lands", "Aseridith Islands", "Battle Islands V", "Strategic Greece", "Numenor", "Great Lakes"];
-var divisions = ["A", "B", "C", "D"];
+var templates = [
+  "Biomes of Americas",
+  "Europe",
+  "Final Earth",
+  "Guiroma",
+  "Timid Land",
+  "ME WR",
+  "Georgia Army Cap",
+  "Hannibal at the Gates",
+  "French Brawl",
+  "Elitist Africa",
+  "Post-Melt Antarctica"
+];
+var divisions = ["A", "B", "C", "D1", "D2", "D3"];
 
 // Finds the index'th occurrence of the subString in the string
 function getPosition(string, subString, index) {
   return string.split(subString, index).join(subString).length;
+}
+
+// Returns the number of clans in a division for the Rosters page
+function getNumberOfClansRoster(rosterRow) {
+  let numClans = 0;
+  for (let i = 0; i < rosterRow.length; i += 3) {
+    if (!!rosterRow[i]) numClans++;
+  }
+
+  return numClans;
 }
 
 // Reads the roster sheet to use for initializing the player stats
@@ -13,108 +35,38 @@ function readRosters() {
   Logger.log("Here is the sheet name: " + SpreadsheetApp.getActive().getName());
   Logger.log("Here is the sheet: " + sheet.getSheetName());
     
-  
-  var divAClans = sheet.getRange("A2:U2").getValues();
-  var divARosters = sheet.getRange("A4:U12").getValues();
-  var divARostersLinks = sheet.getRange("A4:U12").getRichTextValues();
-
-  var divBClans = sheet.getRange("A14:U14").getValues();
-  var divBRosters = sheet.getRange("A16:U24").getValues();
-  var divBRostersLinks = sheet.getRange("A16:U24").getRichTextValues();
-
-  var divCClans = sheet.getRange("A26:U26").getValues();
-  var divCRosters = sheet.getRange("A28:U36").getValues();
-  var divCRostersLinks = sheet.getRange("A28:U36").getRichTextValues();
-  
-  var divDClans = sheet.getRange("A38:U38").getValues();
-  var divDRosters = sheet.getRange("A40:U48").getValues();
-  var divDRostersLinks = sheet.getRange("A40:U48").getRichTextValues();
+  var rosterData = sheet.getRange("A1:U72").getValues();
+  var rosterLinks = sheet.getRange("A1:U72").getRichTextValues();
   
   roster = [];
   order = [];
-  
-  // Grab the A players
-  let divAPlayers = {};
-  let divAClanOrder = []
-  for (var i = 0; i < divAClans[0].length; i+=3) {
-    let clanName = divAClans[0][i];
-    divAPlayers[clanName] = [];
-    divAClanOrder.push(clanName);
+
+  for (let i = 0; i < divisions.length; i++) {
+    // Iterate each of the divisions for rosters
+    let divPlayers = {};
+    let divClanOrder = []
     
-    for (let col = 0; col < 3; col++) {
-      for (var row = 0; row < 9; row++) {
-        if (divARosters[row][i+col]) {
-          divAPlayers[clanName].push({link: divARostersLinks[row][i+col].copy().build(), name: divARosters[row][i+col].trim()});
+    let numClans = getNumberOfClansRoster(rosterData[i * 12 + 1])
+    for (let anchor = 0; anchor < numClans * 3; anchor+=3) {
+      let clanName = rosterData[i * 12 + 1][anchor];
+      divPlayers[clanName] = [];
+      divClanOrder.push(clanName);
+      
+      for (let col = 0; col < 3; col++) {
+        for (let row = 0; row < 9; row++) {
+          if (rosterData[i * 12 + 3 + row][anchor+col]) {
+            divPlayers[clanName].push({
+              link: rosterLinks[i * 12 + 3 + row][anchor+col].copy().build(),
+              name: rosterData[i * 12 + 3 + row][anchor+col].trim()
+            });
+          }
         }
       }
     }
-  }
-  
-  roster.push(divAPlayers);
-  order.push(divAClanOrder);
-  
-  
-  // Grab the B players
-  let divBPlayers = {};
-  let divBClanOrder = []
-  for (var i = 0; i < divBClans[0].length; i+=3) {
-    let clanName = divBClans[0][i];
-    divBPlayers[clanName] = [];
-    divBClanOrder.push(clanName);
     
-    for (let col = 0; col < 3; col++) {
-      for (var row = 0; row < 9; row++) {
-        if (divBRosters[row][i+col]) {
-          divBPlayers[clanName].push({link: divBRostersLinks[row][i+col].copy().build(), name: divBRosters[row][i+col].trim()});
-        }
-      }
-    }
+    roster.push(divPlayers);
+    order.push(divClanOrder);
   }
-  
-  roster.push(divBPlayers);
-  order.push(divBClanOrder);
-  
-  
-  // Grab the C players
-  let divCPlayers = {};
-  let divCClanOrder = []
-  for (var i = 0; i < divCClans[0].length; i+=3) {
-    let clanName = divCClans[0][i];
-    divCPlayers[clanName] = [];
-    divCClanOrder.push(clanName);
-    
-    for (let col = 0; col < 3; col++) {
-      for (var row = 0; row < 9; row++) {
-        if (divCRosters[row][i+col]) {
-          divCPlayers[clanName].push({link: divCRostersLinks[row][i+col].copy().build(), name: divCRosters[row][i+col].trim()});
-        }
-      }
-    }
-  }
-  
-  roster.push(divCPlayers);
-  order.push(divCClanOrder);
-  
-  
-  // Grab the D players
-  let divDPlayers = {};
-  let divDClanOrder = []
-  for (var i = 0; i < divDClans[0].length; i+=3) {
-    let clanName = divDClans[0][i];
-    divDPlayers[clanName] = [];
-    divDClanOrder.push(clanName);
-    
-    for (let col = 0; col < 3; col++) {
-      for (var row = 0; row < 9; row++) {
-        if (divDRosters[row][i+col]) {
-          divDPlayers[clanName].push({link: divDRostersLinks[row][i+col].copy().build(), name: divDRosters[row][i+col].trim()});
-        }
-      }
-    }
-  }
-  
-  roster.push(divDPlayers);
-  order.push(divDClanOrder);
   
   let obj = {order: order, roster: roster};
   
@@ -140,99 +92,31 @@ function readLineups() {
   var sheet = SpreadsheetApp.getActive().getSheetByName("Original Lineups");
   Logger.log("Here is the sheet name: " + SpreadsheetApp.getActive().getName());
   Logger.log("Here is the sheet: " + sheet.getSheetName());
-    
-  var divA = sheet.getRange("A4:BJ10").getValues();
-  var divB = sheet.getRange("A14:BJ20").getValues();
-  var divC = sheet.getRange("A24:BJ30").getValues();
-  var divD = sheet.getRange("A34:BJ40").getValues();
   
+  let lineupData = sheet.getRange("A1:BJ60").getValues();
   let lineups = [];
   
-  
-  // Grabbing A lineups
-  let lineupA = [];
-  
-  for (let i = 0; i < divA[0].length-1; i+=6) {
-    let templateLineup = {}
-    
-    for (let row = 0; row < 7; row++) {
-      templateLineup[divA[row][0]] = [];
-      for (let col = 0; col < 6; col+=2) {
-        if (divA[row][col+1+i]) {
-          templateLineup[divA[row][0]].push(divA[row][col+1+i].trim());
+  for (let divIdx = 0; divIdx < divisions.length; divIdx++) {
+    let lineup = []
+
+    for (let i = 1; i < lineupData[0].length; i+=6) {
+      let templateLineup = {}
+      
+      for (let row = 0; row < 7; row++) {
+        if (!lineupData[divIdx * 10 + 3 + row][0]) continue;
+
+        templateLineup[lineupData[divIdx * 10 + 3 + row][0]] = [];
+        for (let col = 0; col < 6; col+=2) {
+          if (lineupData[divIdx * 10 + 3 + row][col+i]) {
+            templateLineup[lineupData[divIdx * 10 + 3 + row][0]].push(lineupData[divIdx * 10 + 3 + row][col+i].trim());
+          }
         }
       }
-    }
-    lineupA.push(templateLineup);
-  }
-  
-  lineups.push(lineupA);
-  
-  
-  
-  // Grabbing B lineups
-  let lineupB = [];
-  
-  for (let i = 0; i < divB[0].length-1; i+=6) {
-    let templateLineup = {}
-    
-    for (let row = 0; row < 7; row++) {
-      templateLineup[divB[row][0]] = [];
-      for (let col = 0; col < 6; col+=2) {
-        if (divB[row][col+1+i]) {
-          templateLineup[divB[row][0]].push(divB[row][col+1+i].trim());
-        }
-      }
+      lineup.push(templateLineup);
     }
     
-    lineupB.push(templateLineup);
+    lineups.push(lineup);
   }
-  
-  lineups.push(lineupB);
-  
-  
-  
-  // Grabbing C lineups
-  let lineupC = [];
-  
-  for (let i = 0; i < divC[0].length-1; i+=6) {
-    let templateLineup = {}
-    
-    for (let row = 0; row < 7; row++) {
-      templateLineup[divC[row][0]] = [];
-      for (let col = 0; col < 6; col+=2) {
-        if (divC[row][col+1+i]) {
-          templateLineup[divC[row][0]].push(divC[row][col+1+i].trim());
-        }
-      }
-    }
-    
-    lineupC.push(templateLineup);
-  }
-  
-  lineups.push(lineupC);
-  
-  
-  
-  // Grabbing D lineups
-  let lineupD = [];
-  
-  for (let i = 0; i < divD[0].length-1; i+=6) {
-    let templateLineup = {}
-    
-    for (let row = 0; row < 7; row++) {
-      templateLineup[divD[row][0]] = [];
-      for (let col = 0; col < 6; col+=2) {
-        if (divD[row][col+1+i]) {
-          templateLineup[divD[row][0]].push(divD[row][col+1+i].trim());
-        }
-      }
-    }
-    
-    lineupD.push(templateLineup);
-  }
-  
-  lineups.push(lineupD);
   
   //// Object Structure:
   // lineups = [divALineups, divBLineups, ...]
@@ -255,10 +139,10 @@ function initializeDataSheets(division, clanOrder, lineups) {
   Logger.log("Here is the sheet: " + sheet.getSheetName());
   
   let lineupRange = sheet.getRange("K18:O114");
-  
   let lineupData = lineupRange.getValues();
 
   for (let i = 0; i < templates.length; i++) {
+    Logger.log(lineups[i]);
     for (let j = 0; j < clanOrder.length; j++) {
       for (let p = 0; p < lineups[i][clanOrder[j]].length; p++) {
         lineupData[j+i*9][p*2] = lineups[i][clanOrder[j]][p];
@@ -325,24 +209,24 @@ function initializeStatsSheets(rosters, lineups, clanOrders) {
   
   Logger.log(lineups.length);
   
-  let statsRange = sheet.getRange("A2:E500");
+  let statsRange = sheet.getRange("A2:E800");
   let data = statsRange.getValues();
-  let rtvRange = sheet.getRange("B2:B500");
+  let rtvRange = sheet.getRange("B2:B800");
   let rtv = rtvRange.getRichTextValues();
   
-  let template1Range = sheet.getRange("K2:K500");
+  let template1Range = sheet.getRange("K2:K800");
   let template1Data = template1Range.getValues();
-  let template1PointsRange = sheet.getRange("N2:N500");
+  let template1PointsRange = sheet.getRange("N2:N800");
   let template1Points = template1Range.getValues();
   
-  let template2Range = sheet.getRange("O2:O500");
+  let template2Range = sheet.getRange("O2:O800");
   let template2Data = template2Range.getValues();
-  let template2PointsRange = sheet.getRange("R2:R500");
+  let template2PointsRange = sheet.getRange("R2:R800");
   let template2Points = template2Range.getValues();
   
-  let template3Range = sheet.getRange("S2:S500");
+  let template3Range = sheet.getRange("S2:S800");
   let template3Data = template3Range.getValues();
-  let template3PointsRange = sheet.getRange("V2:V500");
+  let template3PointsRange = sheet.getRange("V2:V800");
   let template3Points = template3Range.getValues();
  
   
@@ -408,7 +292,7 @@ function initialize() {
   let roster = readRosters();
   let lineups = readLineups();
   
-  for (let i = 0; i < 4 && false; i++) {
+  for (let i = 0; i < divisions.length; i++) {
     initializeDataSheets(divisions[i], roster.order[i], lineups[i]);
     initializeGLSheets(divisions[i], roster.order[i], lineups[i], roster.roster[i]);
     
