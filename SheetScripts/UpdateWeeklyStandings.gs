@@ -1,4 +1,4 @@
-var divisions = ["A", "B", "C", "D"];
+var divisions = ["A", "B", "C", "D1", "D2", "D3"];
 var TOTAL_POINTS = {
   3: 0.80,
   4: 1.20,

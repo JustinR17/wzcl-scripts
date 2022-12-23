@@ -1,6 +1,18 @@
 
-var templates = ["Deadman's RoR", "Middle Earth", "Szeurope", "Strategic MME", "Biomes of America", "Timid Lands", "Aseridith Islands", "Battle Islands V", "Strategic Greece", "Numenor", "Great Lakes"];
-var divisions = ["A", "B", "C", "D"];
+var templates = [
+  "Biomes of Americas",
+  "Europe",
+  "Final Earth",
+  "Guiroma",
+  "Timid Land",
+  "ME WR",
+  "Georgia Army Cap",
+  "Hannibal at the Gates",
+  "French Brawl",
+  "Elitist Africa",
+  "Post-Melt Antarctica"
+];
+var divisions = ["A", "B", "C", "D1", "D2", "D3"];
 
 function updateSheet(division) {
   var sheet = SpreadsheetApp.getActive().getSheetByName('GL' + division);
