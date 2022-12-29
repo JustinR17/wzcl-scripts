@@ -21,24 +21,24 @@ OUTPUT_FILE_NAME = "output.txt"
 ###
 
 # Must point to the base league page on the clot (showing all tournaments)
-CLOT_PAGE_URL = "http://wzclot.eastus.cloudapp.azure.com/leagues/681/"
+CLOT_PAGE_URL = "http://wzclot.eastus.cloudapp.azure.com/leagues/777/"
 
 # Division order to show in output (MUST MATCH CLOT NAMES)
-divisions = ["Division A", "Division B", "Division C", "Division D"]
+divisions = ["Division A", "Division B", "Division C", "Division D1", "Division D2", "Division D3"]
 
 # Tournament order to show in output (MUST MATCH CLOT NAMES)
 tournaments = [
-    "CL15: 3v3 Middle Earth in the Third Age",
-    "CL15: 3v3 Deadman's Rise of Rome",
-    "CL15: 2v2 Szeurope",
-    "CL15: 2v2 Strategic MME",
-    "CL15: 2v2 Biomes of America",
-    "CL15: 1v1 Timid Lands",
-    "CL15: 1v1 Aseridith Islands",
-    "CL15: 1v1 Battle Islands V",
-    "CL15: 1v1 Strategic Greece",
-    "CL15: 1v1 Numenor",
-    "CL15: 1v1 Great Lakes"
+  "CL16: 3v3 Biomes of America",
+  "CL16: 3v3 Europe",
+  "CL16: 2v2 Final Earth",
+  "CL16: 2v2 Guiroma",
+  "CL16: 2v2 Timid Land",
+  "CL16: 1v1 ME WR",
+  "CL16: 1v1 Georgia Army Cap",
+  "CL16: 1v1 Hannibal at the Gates",
+  "CL16: 1v1 French Brawl",
+  "CL16: 1v1 Elitist Africa",
+  "CL16: 1v1 Post-Melt Antarctica"
 ]
 
 

@@ -27,59 +27,71 @@ OUTPUT_FILE_NAME = "diva.temp"
 FORUM_FILE_NAME = ".txt"
 
 # Must point to the base league page on the clot (showing all tournaments)
-CLOT_PAGE_URL = "http://wzclot.eastus.cloudapp.azure.com/leagues/681/"
+CLOT_PAGE_URL = "http://wzclot.eastus.cloudapp.azure.com/leagues/777/"
 
 # Division order to show in output (MUST MATCH CLOT NAMES)
-divisions = ["Division A", "Division B", "Division C", "Division D"]
+divisions = ["Division A", "Division B", "Division C", "Division D1", "Division D2", "Division D3"]
 
 # Tournament order to show in output (MUST MATCH CLOT NAMES)
 tournaments = [
-    "CL15: 3v3 Middle Earth in the Third Age",
-    "CL15: 3v3 Deadman's Rise of Rome",
-    "CL15: 2v2 Szeurope",
-    "CL15: 2v2 Strategic MME",
-    "CL15: 2v2 Biomes of America",
-    "CL15: 1v1 Timid Lands",
-    "CL15: 1v1 Aseridith Islands",
-    "CL15: 1v1 Battle Islands V",
-    "CL15: 1v1 Strategic Greece",
-    "CL15: 1v1 Numenor",
-    "CL15: 1v1 Great Lakes"
+  "CL16: 3v3 Biomes of America",
+  "CL16: 3v3 Europe",
+  "CL16: 2v2 Final Earth",
+  "CL16: 2v2 Guiroma",
+  "CL16: 2v2 Timid Land",
+  "CL16: 1v1 ME WR",
+  "CL16: 1v1 Georgia Army Cap",
+  "CL16: 1v1 Hannibal at the Gates",
+  "CL16: 1v1 French Brawl",
+  "CL16: 1v1 Elitist Africa",
+  "CL16: 1v1 Post-Melt Antarctica"
 ]
 
 # If a clan has a point penalty (ex. late submission), add their full name in this dict with the associated pts (MUST MATCH CLOT NAMES)
 # ex { "CLAN": 3 }
-point_penalties = {
-  "French Community": 3,
-  "[V.I.W] Very Important Weirdos": 5,
-}
+point_penalties = {}
 
 # If a clan has a long name, add their full name in `abrv_clans` and the shortform in `abrv_clans_shortforms`
 # Note: the indices MUST match between the two lists (ex. first element in either list matches same clan)
 abrv_clans = [
-    "Fifth Column Confederation",
-    "[V.I.W] Very Important Weirdos",
-    "MASTER Clan",
-    "French Community",
-    "Brothers in Arms",
-    "The Last Alliance",
-    "The Hodopian Dynasty",
-    "GRANDMASTER Clan"
+  "Fifth Column Confederation",
+  "[V.I.W] Very Important Weirdos",
+  "MASTER Clan",
+  "French Community",
+  "Brothers in Arms",
+  "The Last Alliance",
+  "The Hodopian Dynasty",
+  "GRANDMASTER Clan",
+  "Union of Soviet Socialist Republics"
 ]
 abrv_clans_shortforms = [
-    "FCC",
-    "VIW",
-    "Masters",
-    "FC",
-    "BIA",
-    "TLA",
-    "Hodopian Dynasty",
-    "Grandmasters"
+  "FCC",
+  "VIW",
+  "Masters",
+  "FC",
+  "BIA",
+  "TLA",
+  "Hodopian Dynasty",
+  "Grandmasters",
+  "USSR"
 ]
 
 # Imgur links for templates to show on the forums... Make sure template name matches the clot names (also copied above in `tournaments`)
 # Note: we use imgur as the links are short (link characters count in WZ forum character limit)
 template_links = {
+  "CL16: 3v3 Biomes of America": "https://imgur.com/Dduifq6",
+  "CL16: 3v3 Europe": "https://imgur.com/9MWUoUN",
+  "CL16: 2v2 Final Earth": "https://imgur.com/pMEAGCV",
+  "CL16: 2v2 Guiroma": "https://imgur.com/NR9s4rB",
+  "CL16: 2v2 Timid Land": "https://imgur.com/QhLhEeJ",
+  "CL16: 1v1 ME WR": "https://imgur.com/cIZwh78",
+  "CL16: 1v1 Georgia Army Cap": "https://imgur.com/IaSI0cv",
+  "CL16: 1v1 Hannibal at the Gates": "https://imgur.com/MgsU57Q",
+  "CL16: 1v1 French Brawl": "https://imgur.com/NpCxoTw",
+  "CL16: 1v1 Elitist Africa": "https://imgur.com/vLXCtrN",
+  "CL16: 1v1 Post-Melt Antarctica": "https://imgur.com/G71kHKb",
+
+  # Archived
   "CL15: 3v3 Middle Earth in the Third Age": "https://imgur.com/pPYvIov.png",
   "CL15: 3v3 Deadman's Rise of Rome": "https://imgur.com/bB4ex5B.png",
   "CL15: 2v2 Szeurope": "https://imgur.com/Nqvvx3Q.png",
@@ -96,35 +108,62 @@ template_links = {
 # Imgur links for clans to show on the forums... Make sure clan name matches the clot names
 # Note: we use imgur as the links are short (link characters count in WZ forum character limit)
 clan_links = {
+  # Div A
   "Python": "https://i.imgur.com/aZ9wzPJ.png",
-  "Fifth Column Confederation": "https://i.imgur.com/mn8RPhZ.png",
   "HAWKS": "https://i.imgur.com/1xgfJ4G.png",
   "MASTER Clan": "https://i.imgur.com/uHxS00R.png",
   "ONE!": "https://imgur.com/MrRBTDH.png",
   "Lu Fredd": "https://i.imgur.com/0gujLpK.png",
-  "[WG]": "https://i.imgur.com/DhsEbOC.png",
-
-  "|GG|": "https://i.imgur.com/Rrj2rKK.png",
-  "[Blitz]": "https://i.imgur.com/qIAwJPK.png",
   "{101st}": "https://i.imgur.com/OkdlLpM.png",
   "French Community": "https://i.imgur.com/CkKg0jG.png",
-  "M'Hunters": "https://i.imgur.com/Ink4qVz.png",
-  "Discovery": "https://i.imgur.com/qOmbM2e.png",
-  "CORP": "https://i.imgur.com/0zWLmjC.png",
 
+  # Div B
+  "Fifth Column Confederation": "https://i.imgur.com/mn8RPhZ.png",
+  "|GG|": "https://i.imgur.com/Rrj2rKK.png",
+  "[Blitz]": "https://i.imgur.com/qIAwJPK.png",
   "[V.I.W] Very Important Weirdos": "https://i.imgur.com/2HOm8M1.png",
-  "Brothers in Arms": "https://i.imgur.com/BWiTNux.png",
-  "Statisticians": "https://i.imgur.com/3mwS52o.png",
   "The Last Alliance": "https://i.imgur.com/c2FMNmu.png",
-  "The Hodopian Dynasty": "https://i.imgur.com/1ccfmyy.png",
-  "Vikinger": "https://i.imgur.com/UzqbzFY.png",
-  "Varangian Guard": "https://i.imgur.com/xxS0mba.png",
+  "Harmony": "https://imgur.com/VZGl4LU",
+  "Optimum": "https://imgur.com/K2HAsvM",
 
+  # Div C
+  "CORP": "https://i.imgur.com/0zWLmjC.png",
+  "Brothers in Arms": "https://i.imgur.com/BWiTNux.png",
   "Polish Eagles": "https://i.imgur.com/pzZVaEU.png",
   "GRANDMASTER Clan": "https://imgur.com/AD8wUnD.png",
-  "The Boiz Army": "https://i.imgur.com/vUBb9GA.png",
   "Partisans": "https://imgur.com/5UigdKO.png",
-  "VS": "https://i.imgur.com/tTPt5ms.png"
+  "VS": "https://i.imgur.com/tTPt5ms.png",
+  "Vikinger": "https://i.imgur.com/UzqbzFY.png",
+
+  # Div D1
+  "Celtica": "https://imgur.com/Bqwcrgv",
+  "The Blue Devils": "https://imgur.com/pLeKWlC",
+  "peepee poo fard": "https://imgur.com/8YrrEHN",
+  "Prime": "https://imgur.com/4qF99Bd",
+  "Cats": "https://imgur.com/oA545py",
+
+  # Div D2
+  "Union of Soviet Socialist Republics": "https://imgur.com/4dxPFEP",
+  "SPARTA": "https://imgur.com/W6cex5J",
+  "Soldiers of Fortune": "https://imgur.com/wkiTBkg",
+  "The Barbarians": "https://imgur.com/MtmcR4R",
+  "Nofrag": "https://imgur.com/AvCa36j",
+  "Nestlings": "https://imgur.com/tZGPF9g",
+
+  # Div D3
+  "M'Hunters": "https://i.imgur.com/Ink4qVz.png",
+  "Myth Busters": "https://imgur.com/tH6BflU",
+  "KILL ‘EM ALL": "https://imgur.com/OM3mlos",
+  "Battle Wolves": "https://imgur.com/jFJqWnz",
+  "German Warlords": "https://imgur.com/LtA4QBx",
+
+  # Archived
+  "[WG]": "https://i.imgur.com/DhsEbOC.png",
+  "Discovery": "https://i.imgur.com/qOmbM2e.png",
+  "Statisticians": "https://i.imgur.com/3mwS52o.png",
+  "The Hodopian Dynasty": "https://i.imgur.com/1ccfmyy.png",
+  "Varangian Guard": "https://i.imgur.com/xxS0mba.png",
+  "The Boiz Army": "https://i.imgur.com/vUBb9GA.png",
 }
 
 
