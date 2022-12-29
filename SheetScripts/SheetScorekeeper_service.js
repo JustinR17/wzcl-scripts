@@ -1,10 +1,10 @@
-const fs = require("fs");
-const { google } = require("googleapis");
+import { writeFile, readFile } from "fs";
+import { google } from "googleapis";
 require("dotenv").config();
 
 // Extra files
-let privateKey = require("./private.json");
-const { webScrapeClot } = require("./WebScrapeClot");
+import { client_email, private_key } from "./private.json";
+import { webScrapeClot } from "./WebScrapeClot";
 
 /********************
  ***** Preamble *****
@@ -15,51 +15,72 @@ The following should be updated somewhere once a clan league
 */
 
 // UPDATE THE spreadsheet ID in the .env file... This is the ID in the URL
-const spreadsheetId = process.env.CL15_TEST_SSID;
+const spreadsheetId = process.env.CL16_SSID;
 //CL16_SSID
 //CL15_TEST_SSID
 
 // This is a mapping from the clans true name (on wz and the clot) to the name normal name in the spreadsheet
 // I separate divisions with an empty line, but this is purely visual and has no purpose
 const API_TO_SHEET_CLANS = {
+  "MASTER Clan": "MASTER Clan",
   "ONE!": "ONE!",
-  "[WG]": "|WG|",
-  "Fifth Column Confederation": "Fifth Column Confederation",
   "HAWKS": "HAWKS",
   "Lu Fredd": "Lu Fredd",
   "Python": "Python",
-  "MASTER Clan": "MASTER Clan",
-  
   "{101st}": "{101st}",
-  "[Blitz]": "[Blitz]",
-  "CORP": "CORP",
-  "Discovery": "Discovery",
   "French Community": "French Community",
+  
+  "[Blitz]": "[Blitz]",
+  "[V.I.W] Very Important Weirdos": "Very Important Weirdos",
+  "The Last Alliance": "The Last Alliance",
+  "Fifth Column Confederation": "Fifth Column Confederation",
   "|GG|": "Good Gamers",
+  "Optimum": "Optimum",
+  "Harmony": "Harmony",
+  
+  "CORP": "CORP",
+  "Brothers in Arms": "Brothers in Arms",
+  "GRANDMASTER Clan": "GRANDMASTER Clan",
+  "Polish Eagles": "Polish Eagles",
+  "VS": "VS",
+  "Vikinger": "Vikinger",
+  "Partisans": "Partisans",
+  
+  "Celtica": "Celtica",
+  "The Blue Devils": "The Blue Devils",
+  "peepee poo fard": "peepee poo fard",
+  "Prime": "Prime",
+  "Cats": "Cats",
+
+  "Union of Soviet Socialist Republics": "Union of Soviet Socialist Republics",
+  "SPARTA": "SPARTA",
+  "Soldiers of Fortune": "Soldiers of Fortune",
+  "The Barbarians": "The Barbarians",
+  "Nofrag": "Nofrag",
+  "Nestlings": "Nestlings",
+
+  "German Warlords": "German Warlords",
+  "Myth Busters": "Myth Busters",
+  "KILL 'EM ALL": "KILL 'EM ALL",
+  "Battle Wolves": "Battle Wolves",
   "M'Hunters": "M'Hunters",
   
-  "Brothers in Arms": "Brothers in Arms",
+  // Keeping below for reference
+  "[WG]": "|WG|",
+  "Discovery": "Discovery",
+  "M'Hunters": "M'Hunters",
   "Statisticians": "Statisticians",
   "The Boiz Army": "The Boiz Army",
-  "The Last Alliance": "The Last Alliance",
   "Varangian Guard": "Varangian Guard",
-  "[V.I.W] Very Important Weirdos": "Very Important Weirdos",
-  "Vikinger": "Vikinger",
-  
-  "GRANDMASTER Clan": "GRANDMASTER Clan",
-  "Partisans": "Partisans",
-  "Polish Eagles": "Polish Eagles",
   "The Hodopian Dynasty": "The Hodopian Dynasty",
-  "VS": "VS",
 };
 
+// Divisions array for iterating
+const DIVISIONS = ["A", "B", "C", "D1", "D2", "D3"];
 
 /*************************************
  **** DO NOT CHANGE WHAT IS BELOW ****
  *************************************/
-
-// Divisions array for iterating
-const DIVISIONS = ["A", "B", "C", "D"];
 
 // Google API Scope for reading/writing spreadsheets
 const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
@@ -71,7 +92,7 @@ const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
 // Scrapes the clot page (should be used in live environment)
 async function apiWebScrape() {
   let games = await webScrapeClot();
-  fs.writeFile("cl.json", JSON.stringify(games), (err) => {
+  writeFile("cl.json", JSON.stringify(games), (err) => {
     if (err) return console.error(err);
     console.log("Games stored to cl.json");
   });
@@ -82,7 +103,7 @@ async function apiWebScrape() {
 // Useful for testing as apiWebScrape() takes a while
 async function mockWebScrape() {
   return new Promise((resolve, reject) => {
-    fs.readFile("cl.json", (err, content) => {
+    readFile("cl.json", (err, content) => {
       if (err) return console.log("Error loading client secret file:", err);
       // Authorize a client with credentials, then call the Google Sheets API.
       resolve(JSON.parse(content));
@@ -410,9 +431,9 @@ async function updateAllSheets(auth) {
 
 // configure a JWT auth client
 let jwtClient = new google.auth.JWT(
-  privateKey.client_email,
+  client_email,
   null,
-  privateKey.private_key,
+  private_key,
   SCOPES
 );
 //authenticate request
