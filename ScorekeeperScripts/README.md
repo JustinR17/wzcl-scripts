@@ -4,6 +4,8 @@ This directory contains all of the scripts that I have made for the scorekeepers
 
 All scripts are written in Python and rely on web-scraping of the clot page (with an additional dependency of the WZ API for one form of the ForumPostBuilder).
 
+**Currently updated for Clan League 16 -- 2022-01-14**
+
 ## Installation
 
 As each script contains the same dependencies, installation is very simple. An included `requirements.txt` speeds up the process with downloading all required dependencies with the version I am using to *hopefully* prevent bad versions.
