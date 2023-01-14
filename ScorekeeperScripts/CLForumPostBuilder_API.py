@@ -79,17 +79,17 @@ abrv_clans_shortforms = [
 # Imgur links for templates to show on the forums... Make sure template name matches the clot names (also copied above in `tournaments`)
 # Note: we use imgur as the links are short (link characters count in WZ forum character limit)
 template_links = {
-  "CL16: 3v3 Biomes of America": "https://imgur.com/Dduifq6",
-  "CL16: 3v3 Europe": "https://imgur.com/9MWUoUN",
-  "CL16: 2v2 Final Earth": "https://imgur.com/pMEAGCV",
-  "CL16: 2v2 Guiroma": "https://imgur.com/NR9s4rB",
-  "CL16: 2v2 Timid Land": "https://imgur.com/QhLhEeJ",
-  "CL16: 1v1 ME WR": "https://imgur.com/cIZwh78",
-  "CL16: 1v1 Georgia Army Cap": "https://imgur.com/IaSI0cv",
-  "CL16: 1v1 Hannibal at the Gates": "https://imgur.com/MgsU57Q",
-  "CL16: 1v1 French Brawl": "https://imgur.com/NpCxoTw",
-  "CL16: 1v1 Elitist Africa": "https://imgur.com/vLXCtrN",
-  "CL16: 1v1 Post-Melt Antarctica": "https://imgur.com/G71kHKb",
+  "CL16: 3v3 Biomes of America": "https://imgur.com/Dduifq6.png",
+  "CL16: 3v3 Europe": "https://imgur.com/9MWUoUN.png",
+  "CL16: 2v2 Final Earth": "https://imgur.com/pMEAGCV.png",
+  "CL16: 2v2 Guiroma": "https://imgur.com/NR9s4rB.png",
+  "CL16: 2v2 Timid Land": "https://imgur.com/QhLhEeJ.png",
+  "CL16: 1v1 ME WR": "https://imgur.com/cIZwh78.png",
+  "CL16: 1v1 Georgia Army Cap": "https://imgur.com/IaSI0cv.png",
+  "CL16: 1v1 Hannibal at the Gates": "https://imgur.com/MgsU57Q.png",
+  "CL16: 1v1 French Brawl": "https://imgur.com/NpCxoTw.png",
+  "CL16: 1v1 Elitist Africa": "https://imgur.com/vLXCtrN.png",
+  "CL16: 1v1 Post-Melt Antarctica": "https://imgur.com/G71kHKb.png",
 
   # Archived
   "CL15: 3v3 Middle Earth in the Third Age": "https://imgur.com/pPYvIov.png",
@@ -123,8 +123,8 @@ clan_links = {
   "[Blitz]": "https://i.imgur.com/qIAwJPK.png",
   "[V.I.W] Very Important Weirdos": "https://i.imgur.com/2HOm8M1.png",
   "The Last Alliance": "https://i.imgur.com/c2FMNmu.png",
-  "Harmony": "https://imgur.com/VZGl4LU",
-  "Optimum": "https://imgur.com/K2HAsvM",
+  "Harmony": "https://imgur.com/VZGl4LU.png",
+  "Optimum": "https://imgur.com/K2HAsvM.png",
 
   # Div C
   "CORP": "https://i.imgur.com/0zWLmjC.png",
@@ -136,26 +136,26 @@ clan_links = {
   "Vikinger": "https://i.imgur.com/UzqbzFY.png",
 
   # Div D1
-  "Celtica": "https://imgur.com/Bqwcrgv",
-  "The Blue Devils": "https://imgur.com/pLeKWlC",
-  "peepee poo fard": "https://imgur.com/8YrrEHN",
-  "Prime": "https://imgur.com/4qF99Bd",
-  "Cats": "https://imgur.com/oA545py",
+  "Celtica": "https://imgur.com/Bqwcrgv.png",
+  "The Blue Devils": "https://imgur.com/pLeKWlC.png",
+  "peepee poo fard": "https://imgur.com/8YrrEHN.png",
+  "Prime": "https://imgur.com/4qF99Bd.png",
+  "Cats": "https://imgur.com/oA545py.png",
 
   # Div D2
-  "Union of Soviet Socialist Republics": "https://imgur.com/4dxPFEP",
-  "SPARTA": "https://imgur.com/W6cex5J",
-  "Soldiers of Fortune": "https://imgur.com/wkiTBkg",
-  "The Barbarians": "https://imgur.com/MtmcR4R",
-  "Nofrag": "https://imgur.com/AvCa36j",
-  "Nestlings": "https://imgur.com/tZGPF9g",
+  "Union of Soviet Socialist Republics": "https://imgur.com/4dxPFEP.png",
+  "SPARTA": "https://imgur.com/W6cex5J.png",
+  "Soldiers of Fortune": "https://imgur.com/wkiTBkg.png",
+  "The Barbarians": "https://imgur.com/MtmcR4R.png",
+  "Nofrag": "https://imgur.com/AvCa36j.png",
+  "Nestlings": "https://imgur.com/tZGPF9g.png",
 
   # Div D3
   "M'Hunters": "https://i.imgur.com/Ink4qVz.png",
-  "Myth Busters": "https://imgur.com/tH6BflU",
-  "KILL ‘EM ALL": "https://imgur.com/OM3mlos",
-  "Battle Wolves": "https://imgur.com/jFJqWnz",
-  "German Warlords": "https://imgur.com/LtA4QBx",
+  "Myth Busters": "https://imgur.com/tH6BflU.png",
+  "KILL ‘EM ALL": "https://imgur.com/OM3mlos.png",
+  "Battle Wolves": "https://imgur.com/jFJqWnz.png",
+  "German Warlords": "https://imgur.com/LtA4QBx.png",
 
   # Archived
   "[WG]": "https://i.imgur.com/DhsEbOC.png",
