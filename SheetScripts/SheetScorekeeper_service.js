@@ -61,7 +61,7 @@ const API_TO_SHEET_CLANS = {
 
   "German Warlords": "German Warlords",
   "Myth Busters": "Myth Busters",
-  "KILL 'EM ALL": "KILL 'EM ALL",
+  "KILL ‘EM ALL": "KILL ‘EM ALL",
   "Battle Wolves": "Battle Wolves",
   "M'Hunters": "M'Hunters",
   
