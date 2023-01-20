@@ -1,10 +1,10 @@
-import { writeFile, readFile } from "fs";
-import { google } from "googleapis";
+const { writeFile, readFile } = require("fs");
+const { google } = require("googleapis");
 require("dotenv").config();
 
 // Extra files
-import { client_email, private_key } from "./private.json";
-import { webScrapeClot } from "./WebScrapeClot";
+const { client_email, private_key } = require("./private.json")
+const { webScrapeClot } = require("./WebScrapeClot.js");
 
 /********************
  ***** Preamble *****
@@ -15,7 +15,7 @@ The following should be updated somewhere once a clan league
 */
 
 // UPDATE THE spreadsheet ID in the .env file... This is the ID in the URL
-const spreadsheetId = process.env.CL16_SSID;
+const spreadsheetId = process.env.CL16_TEST_SSID;
 //CL16_SSID
 //CL15_TEST_SSID
 
@@ -31,10 +31,10 @@ const API_TO_SHEET_CLANS = {
   "French Community": "French Community",
   
   "[Blitz]": "[Blitz]",
-  "[V.I.W] Very Important Weirdos": "Very Important Weirdos",
+  "[V.I.W] Very Important Weirdos": "[V.I.W] Very Important Weirdos",
   "The Last Alliance": "The Last Alliance",
   "Fifth Column Confederation": "Fifth Column Confederation",
-  "|GG|": "Good Gamers",
+  "|GG|": "|GG|",
   "Optimum": "Optimum",
   "Harmony": "Harmony",
   

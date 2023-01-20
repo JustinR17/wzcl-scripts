@@ -43,13 +43,11 @@ async function webScrapeClot() {
                 // All remaining tables reflect CL game tables to parse
                 //! Update the indices based on the template name structures
                 let tablerows = table.children[0].children;
-                let division = tablerows[0].children[0].children[0].data.substring(0, 10);
-                let template = tablerows[0].children[0].children[0].data.substring(19);
+                let division = tablerows[0].children[0].children[0].data.substring(0, 11).trim();
+                let template = tablerows[0].children[0].children[0].data.substring(19).trim();
 
-                if (template.includes("Deadman's")) {
-                    template = "3v3 Deadman's RoR";
-                } else if (template.includes("Middle Earth")) {
-                    template = "3v3 Middle Earth";
+                if (template.includes("Biomes")) {
+                    template = "3v3 Biomes of Americas";
                 }
                 
                 // Init games object if div/template does not exist
