@@ -318,8 +318,8 @@ def readClotPage():
   tournament_number = 0
   for element in elements:
     tournament_number += 1
-    division = element.get_text()[0:10]
-    template = element.get_text()[13: element.get_text().index(" Games")]
+    division = element.get_text()[0:11].strip()
+    template = element.get_text()[13: element.get_text().index(" Games")].strip()
     total_games = 0
     print("\t{}. Processing {} - {} on the CLOT and WZ API".format(tournament_number, division, template))
 
