@@ -98,8 +98,8 @@ def readClotPage():
   masterData = {}
 
   for element in elements:
-    division = element.get_text()[0:10]
-    template = element.get_text()[13: element.get_text().index(" Games")]
+    division = element.get_text()[0:11].strip()
+    template = element.get_text()[13: element.get_text().index(" Games")].strip()
 
     # Create new entries in the dicts if missing
     if division not in masterData:
