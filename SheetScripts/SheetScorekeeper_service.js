@@ -15,7 +15,7 @@ The following should be updated somewhere once a clan league
 */
 
 // UPDATE THE spreadsheet ID in the .env file... This is the ID in the URL
-const spreadsheetId = process.env.CL16_TEST_SSID;
+const spreadsheetId = process.env.CL16_SSID;
 //CL16_SSID
 //CL15_TEST_SSID
 
