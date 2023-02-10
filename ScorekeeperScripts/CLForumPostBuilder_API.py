@@ -109,7 +109,7 @@ template_links = {
 # Note: we use imgur as the links are short (link characters count in WZ forum character limit)
 clan_links = {
   # Div A
-  "Python": "https://i.imgur.com/aZ9wzPJ.png",
+  "Python": "https://i.imgur.com/WnXXWFK.png",
   "HAWKS": "https://i.imgur.com/1xgfJ4G.png",
   "MASTER Clan": "https://i.imgur.com/uHxS00R.png",
   "ONE!": "https://imgur.com/MrRBTDH.png",
