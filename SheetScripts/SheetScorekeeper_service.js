@@ -117,7 +117,7 @@ async function updateSheet(division, games, sheet, boots) {
     await sheet.spreadsheets.values.get({
       auth: jwtClient,
       spreadsheetId: spreadsheetId,
-      range: `GL${division}!A1:E255`,
+      range: `GL${division}!A1:E254`,
     })
   ).data.values;
 
@@ -138,6 +138,14 @@ async function updateSheet(division, games, sheet, boots) {
       range: `GL${division}!D1:E254`,
     })
   ).data.values;
+
+  // Ensure lengths are identical
+  while (leftClanGamesWO.length < clanGamesRO.length) {
+    leftClanGamesWO.push([]);
+  }
+  while (rightClanGamesWO.length < clanGamesRO.length) {
+    rightClanGamesWO.push([]);
+  }
 
   let templateGames = games["Division " + division];
   let tournaments = [];

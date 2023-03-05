@@ -1,6 +1,8 @@
 #!/bin/bash
 
-pushd /home/pi/Desktop/clscripts/SheetScripts/
-printf '%s\n' "$(date)" >> logs/output.txt
-npm start >> logs/output.txt
+source /home/pi/.bashrc
+pushd /home/pi/Desktop/wzcl-scripts/SheetScripts/
+printf '%s\n' "$(date)"
+npm start
 popd
+echo
