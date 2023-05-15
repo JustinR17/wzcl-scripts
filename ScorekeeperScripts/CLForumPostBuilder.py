@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import re
-import sys
+import argparse
 
 ################
 ### Preamble ###
@@ -15,7 +15,7 @@ import sys
 INPUT_FILE_NAME =  "starterfile.txt"
 
 # Output file cannot already exist or else I crash this... Prevents overwrites
-OUTPUT_FILE_NAME = "diva.temp"
+OUTPUT_FILE_NAME = "divb2.temp"
 
 
 ###
@@ -29,7 +29,16 @@ FORUM_FILE_NAME = ".txt"
 CLOT_PAGE_URL = "http://wzclot.eastus.cloudapp.azure.com/leagues/777/"
 
 # Division order to show in output (MUST MATCH CLOT NAMES)
-divisions = ["Division A", "Division B", "Division C", "Division D1", "Division D2", "Division D3"]
+# The dictionary matches the shortform (lowercase) to the actual CLOT name to allow for selecting certain divisions
+#   from the CLI without having to modify this code
+divisions = {
+  "a": "Division A",
+  "b": "Division B",
+  "c": "Division C",
+  "d1": "Division D1",
+  "d2": "Division D2",
+  "d3": "Division D3",
+}
 
 # Tournament order to show in output (MUST MATCH CLOT NAMES)
 tournaments = [
@@ -465,9 +474,27 @@ def writeForumPostForDivision(division_game_list, division_tournament_standings,
 ##################### Main Code #####################
 #####################################################
 
-if len(sys.argv) < 2 or sys.argv[1] != "run":
-  print("> Please pass in 'run' as an argument to run the program.")
-  sys.exit(0)
+# Parse command-line arguments
+parser = argparse.ArgumentParser(description="Parse Clan League games and generate forum bbcode output.", allow_abbrev=True)
+parser.add_argument("-d", "--divisions", help="specify specific divisions to parse. (comma-delimited list)", default="*")
+args = parser.parse_args()
+print(args)
+print()
+
+divisions_to_iterate = set()
+if args.divisions == "*":
+  # default case: iterate all divisions
+  divisions_to_iterate = divisions.values()
+else:
+  # special case: only iterate selected divisions
+  for division in args.divisions.split(','):
+    if division.lower() in divisions:
+      divisions_to_iterate.add(divisions[division])
+
+# There must be some division to parse
+if len(divisions_to_iterate) == 0:
+  raise Exception(f"Invalid division selection provided: '{args.divisions}'. Expected a comma-delimited list.")
+print(f"Divisions to output: {', '.join(divisions_to_iterate)}\n")
 
 # Get current CL game info from CLOT page (read-only)
 full_game_list, full_tournament_standings, full_clan_standings, total_finished = readClotPage()
@@ -500,7 +527,7 @@ for division in total_game_count.keys():
 print("Number of games in total: {}".format(total_games))
 
 # Create the forum text for each division
-for division in divisions:
+for division in divisions_to_iterate:
   division_game_list = full_game_list[division]
   division_standings = full_tournament_standings[division]
   division_clan_standings = full_clan_standings[division]

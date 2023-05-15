@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import re
-import sys
+import argparse
 
 
 ################
@@ -16,7 +16,7 @@ import sys
 INPUT_FILE_NAME =  "starterfile.txt"
 
 # Output file cannot already exist or else I crash this... Prevents overwrites
-OUTPUT_FILE_NAME = "diva.temp"
+OUTPUT_FILE_NAME = "diva2.temp"
 
 
 ###
@@ -30,7 +30,16 @@ FORUM_FILE_NAME = ".txt"
 CLOT_PAGE_URL = "http://wzclot.eastus.cloudapp.azure.com/leagues/777/"
 
 # Division order to show in output (MUST MATCH CLOT NAMES)
-divisions = ["Division A", "Division B", "Division C", "Division D1", "Division D2", "Division D3"]
+# The dictionary matches the shortform (lowercase) to the actual CLOT name to allow for selecting certain divisions
+#   from the CLI without having to modify this code
+divisions = {
+  "a": "Division A",
+  "b": "Division B",
+  "c": "Division C",
+  "d1": "Division D1",
+  "d2": "Division D2",
+  "d3": "Division D3",
+}
 
 # Tournament order to show in output (MUST MATCH CLOT NAMES)
 tournaments = [
@@ -200,7 +209,8 @@ TOTAL_POINTS = {
   10: 1800
 }
 
-WZ_API_URL = "https://www.warzone.com/API/ValidateInviteToken?Token="
+WZ_GAME_API_URL = "https://www.warzone.com/API/GameFeed?GameID="
+WZ_PLAYER_API_URL = "https://www.warzone.com/API/ValidateInviteToken?Token="
 
 ############################
 ##### Helper Functions #####
@@ -214,23 +224,38 @@ def get_clan_name(cell):
 def divide(a, b):
   return a/b if b else 0
 
-def add_players_to_team_obj(obj, players):
+def add_players_to_team_obj(obj, players, game_id):
   req_obj = {
-    "Email": sys.argv[2],
-    "APIToken": sys.argv[3]
+    "Email": args.email,
+    "APIToken": args.token
   }
 
   obj["players"] = []
+  data = requests.post(WZ_GAME_API_URL + game_id, data=req_obj).json()
+  
+  player_data = {}
+  if "error" not in data:
+    # Ideally we use this to avoid making many API calls for each player
+    for p_data in data["players"]:
+      player_data[p_data["id"]] = p_data["name"]
+  else:
+    # Game is deleted... We must now iterate each player
+     for player in players.split("."):
+      data = requests.post(WZ_PLAYER_API_URL + player, data=req_obj).json()
+
+      if "name" in data:
+        player_data[player] = data["name"]
+      elif "error" in data and "belongs to a deleted player" in data["error"]:
+        # Deleted player... Nothing we can do here
+        player_data[player] = "(Deleted)"
+      else:
+        # ID likely invalid, player is blacklisted or email/token wrong (for some reason... idk)
+        print("Something bad happened while processing player of ID: '{}' in game '{}'".format(player, game_id))
+        print(data)
 
   for player in players.split("."):
-    data = requests.post(WZ_API_URL + player, data=req_obj).json()
-
-    if "name" in data:
-      obj["players"].append({"name": data["name"], "id": player})
-    else:
-      # ID likely invalid or email/token wrong (for some reason... idk)
-      print("Something bad happened while processing player of ID: '{}'".format(player))
-      print(data)
+    if player in player_data:
+      obj["players"].append({"name": player_data[player], "id": player})
 
 # Returns a team object given the BS4 HTML cell
 def format_team_dict(cell):
@@ -381,8 +406,8 @@ def readClotPage():
             newGame["winners"] = format_team_dict(leftTeam)
           
           # Hit WZ API to obtain player names (Can't use CLOT names since these can be incorrect if there are subs)
-          add_players_to_team_obj(newGame["winners"], row[iter]["data-players"].split("-")[0])
-          add_players_to_team_obj(newGame["losers"], row[iter]["data-players"].split("-")[1])
+          add_players_to_team_obj(newGame["winners"], row[iter]["data-players"].split("-")[0], cell.attrs["href"][cell.attrs["href"].index("=")+1:])
+          add_players_to_team_obj(newGame["losers"], row[iter]["data-players"].split("-")[1], cell.attrs["href"][cell.attrs["href"].index("=")+1:])
 
           # Determine the points per win for the tournament
           # 3v3 == 5pts; 2v2 == 4pts; 1v1 == 3pts
@@ -492,10 +517,29 @@ def writeForumPostForDivision(division_game_list, division_tournament_standings,
 ##################### Main Code #####################
 #####################################################
 
-if len(sys.argv) < 4 or sys.argv[1] != "run":
-  print("> Please pass in 'run', your email & API token enclosed in quotes as an argument to run the program.")
-  print("> example: python CLForumPostBuilder_API.py run \"email@email.com\" \"apitoken123hi!345\"")
-  sys.exit(0)
+# Parse command-line arguments
+parser = argparse.ArgumentParser(description="Parse Clan League games and generate forum bbcode output.", allow_abbrev=True)
+parser.add_argument("-d", "--divisions", help="specify specific divisions to parse. (comma-delimited list)", default="*")
+parser.add_argument("email")
+parser.add_argument("token")
+args = parser.parse_args()
+print(args)
+print()
+
+divisions_to_iterate = set()
+if args.divisions == "*":
+  # default case: iterate all divisions
+  divisions_to_iterate = divisions.values()
+else:
+  # special case: only iterate selected divisions
+  for division in args.divisions.split(','):
+    if division.lower() in divisions:
+      divisions_to_iterate.add(divisions[division])
+
+# There must be some division to parse
+if len(divisions_to_iterate) == 0:
+  raise Exception(f"Invalid division selection provided: '{args.divisions}'. Expected a comma-delimited list.")
+print(f"Divisions to output: {', '.join(divisions_to_iterate)}\n")
 
 # Get current CL game info from CLOT page (read-only)
 full_game_list, full_tournament_standings, full_clan_standings, total_finished = readClotPage()
@@ -527,7 +571,7 @@ for division in total_game_count.keys():
 print("Number of games in total: {}".format(total_games))
 
 # Create the forum text for each division
-for division in divisions:
+for division in divisions_to_iterate:
   division_game_list = full_game_list[division]
   division_standings = full_tournament_standings[division]
   division_clan_standings = full_clan_standings[division]
