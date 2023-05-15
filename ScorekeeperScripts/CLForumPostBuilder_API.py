@@ -1,3 +1,4 @@
+import sys
 from bs4 import BeautifulSoup
 import requests
 import re
@@ -538,7 +539,7 @@ else:
 
 # There must be some division to parse
 if len(divisions_to_iterate) == 0:
-  raise Exception(f"Invalid division selection provided: '{args.divisions}'. Expected a comma-delimited list.")
+  raise Exception(f"Invalid division selection provided: '{args.divisions}'. Expected a comma-delimited list of '{','.join(divisions.keys())}'.")
 print(f"Divisions to output: {', '.join(divisions_to_iterate)}\n")
 
 # Get current CL game info from CLOT page (read-only)
