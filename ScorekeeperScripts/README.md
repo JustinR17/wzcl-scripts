@@ -4,7 +4,25 @@ This directory contains all of the scripts that I have made for the scorekeepers
 
 All scripts are written in Python and rely on web-scraping of the clot page (with an additional dependency of the WZ API for one form of the ForumPostBuilder).
 
-**Currently updated for Clan League 16 -- 2022-01-14**
+**Currently updated for Clan League 16 -- 2023-05-18**
+
+## Change Log
+
+```
+2023-05-18
+    - Updated README with extra usage of the CLForumPostBuilder_API.py & CLForumPostBuilder.py scripts outlining using
+        the -d <divisions> option
+    - Updated run commands for both scripts
+2023-05-15
+    - Added proper CLI argument parsing for CLForumPostBuilder_API.py & CLForumPostBuilder.py (better usage help message)
+    - Added a -d <divisions> option for the scripts to select which divisions to parse only
+    - Modified the API version to first check the game with the API for all players. If the game is deleted, then switch
+        to the original version and query each player against the API
+        - This is done to significantly reduce the number of API calls (24min -> 8min)
+        - This allows for parsing players that have blacklisted the user
+        - Must have the fallback of checking individual players in case of game deletion
+    - Fixed an uncaught error for players that have deleted their account. Default their name to (deleted)
+```
 
 ## Installation
 
@@ -102,6 +120,42 @@ TemplateI
 
 ## How to run the scripts
 
+**Recently (as of around 2023-05-15)** the scripts were updated with proper CLI argument parsing. As such, there is a better interface for understanding what each parameter does in addition to additional switch support to improve user experience.
+
+To see help usage for each file, use the following:
+```python
+python CLForumPostBuilder_API.py -h
+    usage: CLForumPostBuilder_API.py [-h] [-d DIVISIONS] email token     
+
+    Parse Clan League games and generate forum bbcode output.
+
+    positional arguments:
+    email
+    token
+
+    optional arguments:
+    -h, --help            show this help message and exit
+    -d DIVISIONS, --divisions DIVISIONS
+                            specify specific divisions to parse. (comma-delimited list)
+
+python CLForumPostBuilder.py -h
+    usage: CLForumPostBuilder.py [-h] [-d DIVISIONS]
+
+    Parse Clan League games and generate forum bbcode output.
+
+    optional arguments:
+    -h, --help            show this help message and exit
+    -d DIVISIONS, --divisions DIVISIONS
+                            specify specific divisions to parse. (comma-delimited list)
+```
+
+**Note:** the following addition for selectively building forum output for certain divisions.
+```python
+python CLForumPostBuilder_API.py ... # This is the normal command, defaults to all divisions
+python CLForumPostBuilder_API.py -d a ... # Only parses Division A
+python CLForumPostBuilder_API.py -d a,d1,s,b # Only parses Divisions A, B, D1 (s is invalid & discard)
+```
+
 ### CLForumPostBuilder
 
 There are two variants of this script: one variant uses the WZ API to gather accurate player information while the other doesn't. These are respectively named `CLForumPostBuilder_API.py` and `CLForumPostBuilder.py`. Both output very similar information with the exception of the players included in the recently finished game section of each template.
@@ -114,7 +168,7 @@ For background information, the WZClot site created by B only shows the current 
 
 To run the script, use the following command:
 ```bash
-python CLForumPostBuilder_API.py run "<wz-email>" "<api-token>"
+python CLForumPostBuilder_API.py "<wz-email>" "<api-token>" [-d <divisions>]
 ```
 
 Since this uses the WZ API, the script will take a while to run (couple minutes).
@@ -124,7 +178,7 @@ Since this uses the WZ API, the script will take a while to run (couple minutes)
 
 To run the script, use the following command:
 ```bash
-python CLForumPostBuilder.py run
+python CLForumPostBuilder.py [-d <divisions>]
 ```
 
 ### FinishedGamesCSV
