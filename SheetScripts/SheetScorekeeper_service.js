@@ -78,6 +78,20 @@ const API_TO_SHEET_CLANS = {
 // Divisions array for iterating
 const DIVISIONS = ["A", "B", "C", "D1", "D2", "D3"];
 
+const TEMPLATE_TO_POINTS = {
+  "3v3 Biomes of Americas": 5,
+  "3v3 Europe": 5,
+  "2v2 Final Earth": 4,
+  "2v2 Guiroma": 4,
+  "2v2 Timid Land": 4,
+  "1v1 ME WR": 3,
+  "1v1 Georgia Army Cap": 3,
+  "1v1 Hannibal at the Gates": 3,
+  "1v1 French Brawl": 3,
+  "1v1 Elitist Africa": 3,
+  "1v1 Post-Melt Antarctica": 3,
+};
+
 /*************************************
  **** DO NOT CHANGE WHAT IS BELOW ****
  *************************************/
@@ -111,7 +125,7 @@ async function mockWebScrape() {
   });
 }
 
-async function updateSheet(division, games, sheet, boots) {
+async function updateSheet(division, games, sheet, boots, finished_game_list) {
 
   let clanGamesRO = (
     await sheet.spreadsheets.values.get({
@@ -190,9 +204,10 @@ async function updateSheet(division, games, sheet, boots) {
       );
       if (game) {
         if (game.isFinished && !clanGamesRO[row][1]) {
+          game.division = division;
+          game.template = template;
+          finished_game_list.push(game)
           if (game.isBoot || game.isNonJoin) {
-            game.division = division;
-            game.template = template;
             boots.push(game);
           }
 
@@ -355,13 +370,14 @@ async function updateBoots(boots, sheet) {
     })
   ).data.values;
 
-  // Find the next row to add to
+  // Find the next empty row to append to
   let i = 0;
   while (currentBootsRO && currentBootsRO[i] && currentBootsRO[i][0]) {
     i++;
   }
   let currentBootsWO = [];
 
+  // Sort the games by date first and then push new results to a writable rows array
   boots.sort((a, b) => (a.date < b.date ? -1 : 1));
   for (let idx = 0; idx < boots.length; idx++) {
     currentBootsWO.push([
@@ -402,6 +418,111 @@ async function updateBoots(boots, sheet) {
   });
 }
 
+function getClanPointsForGameList(clans, points, winner, loser) {
+  let sheetOutput = [];
+
+  // Return a list of points contested/won for each clan based on the new game row
+  for (let clan of Object.keys(clans)) {
+    // points contested increases for both winner and loser
+    // points won increases for the winner only
+    sheetOutput.push((clan === winner || clan === loser ? points : 0) + clans[clan].pc);
+    sheetOutput.push((clan === winner ? points : 0) + clans[clan].pw);
+
+    // Update the sums for any later games to parse
+    if (clan === winner || clan === loser) clans[clan].pc += points
+    if (clan === winner) clans[clan].pw += points
+  }
+
+  return sheetOutput
+}
+
+async function updateSheetGameList(division, game_list, sheet) {
+  let currentGamesRO = (
+    await sheet.spreadsheets.values.get({
+      auth: jwtClient,
+      spreadsheetId: spreadsheetId,
+      range: `Games_${division}!A1:T500`
+    })
+  ).data.values;
+
+
+  let clans = {};
+  for (let i = 6; i < currentGamesRO[0].length; i += 2) {
+    clans[currentGamesRO[0][i]] = {
+      pc: 0,
+      pw: 0
+    };
+  }
+
+  // First we must iterate through existing games to tally the clan points contested (pc) & points won (pw)
+  // This also initializes the writer head pointer to the next empty position
+  let i = 1;
+  while (currentGamesRO && currentGamesRO[i] && currentGamesRO[i][0]) {
+    for (let j = 6; j < currentGamesRO[i].length; j += 2) {
+      clans[currentGamesRO[0][j]] = {
+        pc: Number(currentGamesRO[i][j]),
+        pw: Number(currentGamesRO[i][j+1]),
+      };
+    }
+    i++;
+  }
+  let currentGamesWO = [];
+
+  // Sort the games by date first and then push new results to a writable rows array
+  game_list.sort((a, b) => (a.date < b.date ? -1 : 1));
+  for (let idx = 0; idx < game_list.length; idx++) {
+    currentGamesWO.push([
+      game_list[idx].template,
+      game_list[idx].winners.name,
+      game_list[idx].losers.name,
+      TEMPLATE_TO_POINTS[game_list[idx].template],
+      game_list[idx].date,
+      game_list[idx].link,
+      ...getClanPointsForGameList(clans, TEMPLATE_TO_POINTS[game_list[idx].template], game_list[idx].winners.name, game_list[idx].losers.name)
+    ]);
+  }
+
+  await new Promise((resolve, reject) => {
+    sheet.spreadsheets.values.update(
+      {
+        auth: jwtClient,
+        spreadsheetId: spreadsheetId,
+        range: `Games_${division}!A${1+i}:T${1+i+game_list.length}`,
+        resource: { values: currentGamesWO },
+        valueInputOption: "USER_ENTERED",
+      },
+      (err, result) => {
+        if (err) {
+          // Handle error
+          console.log(err);
+          // [START_EXCLUDE silent]
+          reject(err);
+          // [END_EXCLUDE]
+        } else {
+          console.log(`Successfully updated the contested points games table with ${game_list.length} new games.`);
+          // [START_EXCLUDE silent]
+          resolve(result);
+          // [END_EXCLUDE]
+        }
+      }
+    );
+  });
+}
+
+// Partially flattens the games dictionary to a sorted list by division
+function manuallyConstructDivisionGameList(game_list, games) {
+  for (const [division, templates] of Object.entries(games)) {
+    game_list[division] = []
+    for (const [template, games] of Object.entries(templates)) {
+      for (const game of games) {
+        game.division = division;
+        game.template = template;
+        game_list[division].push(game);
+      }
+    }
+  }
+}
+
 // Useful function to gather boots without updating the GL sheets
 function manuallyAddBoots(boots, games) {
   for (const [division, templates] of Object.entries(games)) {
@@ -426,10 +547,13 @@ async function updateAllSheets(auth) {
   // let games = await mockWebScrape();
 
   let boots = [];
+  let game_list = {};
 
   for (const division of DIVISIONS) {
     console.log(`Updating sheet for division ${division}`);
-    await updateSheet(division, games, sheet, boots);
+    game_list[division] = [];
+    await updateSheet(division, games, sheet, boots, game_list[division]);
+    await updateSheetGameList(division, game_list[division], sheet);
   }
 
   // manuallyAddBoots(boots, games);
