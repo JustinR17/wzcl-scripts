@@ -5,7 +5,8 @@
 1. [Creating new Clan League Sheet](#1-creating-new-clan-league-sheet)
 2. [Player substitutions](#2-player-substitutions)
 3. [Boots & Non-joins](#3-boots--non-joins)
-4. etc
+4. [Adding New Players During Midseason Registration](#4-adding-new-players-during-midseason-registration)
+5. [Removing Existing Players During Midseason Registration](#5-removing-existing-players-during-midseason-registration)
 
 
 ## 1. Creating New Clan League Sheet
@@ -30,6 +31,8 @@ This scenario usually happens before a template has began, but could also happen
 
 3. Add the substitution to the `Substitutions` tab.
 
+**NOTE: the template name MUST be spelled the exact same way or else scripts will break.**
+
 ![Substitutions after subs](./imgs/2-1-3.png)
 
 4. Update the player name in the relevant `DATA_X` tab.
@@ -41,6 +44,8 @@ This scenario usually happens before a template has began, but could also happen
 ![GLA before subs](./imgs/2-1-5.png)
 
 6. Overwrite the player name and warzone ID with `PlayerIn` (since there are no games for `PlayerOut`, no new lines are required).
+
+**Note: the `PlayerIn` name MUST match the spelling as in the `Player_Stats` page or else scripts will break. The ID must also match the order of players.**
 
 ![GLA after subs](./imgs/2-1-6.png)
 
@@ -56,6 +61,8 @@ This scenario usually happens before a template has began, but could also happen
 
 3. (Same as previous section) Add the substitution to the `Substitutions` tab.
 
+**NOTE: the template name MUST be spelled the exact same way or else scripts will break**
+
 ![Substitutions after subs](./imgs/2-1-3.png)
 
 4. (Same as previous section) Update the player name in the relevant `DATA_X` tab.
@@ -69,6 +76,8 @@ This scenario usually happens before a template has began, but could also happen
 6. Move all the clans below the substituting clan down lines to allow for the new player to be inserted (and a summing total row for the substituting clan if it does not exist already). Clan name formulas may need to be adjusted.
 
 Add the `PlayerIn` along with their warzone ID. Change the clans players background (name & wins/losses) to `reset` and set the background colour for the `totals` row to yellow and update the `totals` wins/losses to `=SUM(range)` where `range` are the clans players.
+
+**Note: the `PlayerIn` name MUST match the spelling as in the `Player_Stats` page or else scripts will break. The ID must also match the order of players.**
 
 ![GLA after subs](./imgs/2-2-6.png)
 
@@ -87,3 +96,9 @@ Add the `PlayerIn` along with their warzone ID. Change the clans players backgro
 3. Go to the relevant division `DATA_X` page and add the points for the game to the relevant column/clan. **The total `net` sum should be 0.**
 
 ![data_a after](./imgs/3-3.png)
+
+
+## 4. Adding New Players During Midseason Registration
+
+
+## 5. Removing Existing Players During Midseason Registration
