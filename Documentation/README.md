@@ -2,9 +2,9 @@
 
 ## Table of Contents
 
-1. [Creating new Clan League Sheet](#creating-new-clan-league-sheet)
-2. [Player substitutions](#player-substitutions)
-3. [Boots & Non-joins](#boots--non-joins)
+1. [Creating new Clan League Sheet](#1-creating-new-clan-league-sheet)
+2. [Player substitutions](#2-player-substitutions)
+3. [Boots & Non-joins](#3-boots--non-joins)
 4. etc
 
 
