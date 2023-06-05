@@ -11,3 +11,4 @@ venv/
 # Private files
 .env
 private.json
+SheetScripts/cl.json

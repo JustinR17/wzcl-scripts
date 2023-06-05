@@ -100,5 +100,33 @@ Add the `PlayerIn` along with their warzone ID. Change the clans players backgro
 
 ## 4. Adding New Players During Midseason Registration
 
+**Let `PlayerA` be the new player to add to a clan's roster.**
+
+1. Add the player name (ideally exactly how it is spelled on Warzone) on the `Rosters` page assuming the clan still has more slots (max 27 players currently). Make sure to link the cell to the players profile on warzone (using their unique warzone player ID and not their discord-esque ID).
+
+![roster after](./imgs/4-1.png)
+
+2. On the `Player_Stats`, copy an existing player's row in the same clan and copy it to the bottom of the list of players. Update the player's name and link, country and template slots. Make sure that the name matches their warzone name (and roster name).
+
+![player stats after adding player](./imgs/4-2.png)
+
+3. Highlight all of the columns & players in the table (including the header), and hit `Data -> Sort Range -> Advanced Range Sorting Options`. Check `Data has header row` and sort the following by: `Division -> Clan -> Player`. `Sort`.
+
+![player stats after sorting](./imgs/4-3.png)
+
 
 ## 5. Removing Existing Players During Midseason Registration
+
+**NOTE: a player can only be removed from a roster iff the player has not appeared in the lineup at any time.**
+
+1. Remove the player name from the `Rosteres` tab and readjust players so there are no empty holes in the list.
+
+Before:
+![roster before removing player](./imgs/5-1-1.png)
+
+After:
+![roster after removing player](./imgs/5-1-2.png)
+
+2. On the `Player_Stats` tab, highlight the player row, right click and select `Delete Row`.
+
+![player stats removing player](./imgs/5-2.png)
