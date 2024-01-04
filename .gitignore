@@ -12,3 +12,6 @@ venv/
 .env
 private.json
 SheetScripts/cl.json
+
+output.txt
+
