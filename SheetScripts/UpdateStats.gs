@@ -1,18 +1,23 @@
 
 var templates = [
-  "Biomes of Americas",
-  "Europe",
-  "Final Earth",
+  # 3v3
+  "Deadman's Rome",
+  "Middle Earth in Third Age",
+
+  # 2v2
+  "Volcano Island",
+  "Szeurope",
+  "Crimea Army Cap",
+
+  # 1v1
+  "Unicorn Island",
+  "MME MA LD LF",
+  "Aseridith Islands",
   "Guiroma",
-  "Timid Land",
-  "ME WR",
-  "Georgia Army Cap",
-  "Hannibal at the Gates",
-  "French Brawl",
-  "Elitist Africa",
-  "Post-Melt Antarctica"
+  "Landria",
+  "Fogless Fighting (CL)"
 ];
-var divisions = ["A", "B", "C", "D1", "D2", "D3"];
+var divisions = ["A", "B", "C1", "C2", "D"];
 
 function updateSheet(division) {
   var sheet = SpreadsheetApp.getActive().getSheetByName('GL' + division);

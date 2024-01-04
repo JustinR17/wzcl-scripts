@@ -24,48 +24,51 @@ const spreadsheetId = process.env.CL16_SSID;
 const API_TO_SHEET_CLANS = {
   "MASTER Clan": "MASTER Clan",
   "ONE!": "ONE!",
-  "HAWKS": "HAWKS",
   "Lu Fredd": "Lu Fredd",
   "Python": "Python",
-  "{101st}": "{101st}",
-  "French Community": "French Community",
-  
+  "Union Strikes Back": "Union Strikes Back",
   "[Blitz]": "[Blitz]",
-  "[V.I.W] Very Important Weirdos": "[V.I.W] Very Important Weirdos",
-  "The Last Alliance": "The Last Alliance",
-  "Fifth Column Confederation": "Fifth Column Confederation",
-  "|GG|": "|GG|",
   "Optimum": "Optimum",
+
+  "|GG|": "|GG|",
+  "HAWKS": "HAWKS",
   "Harmony": "Harmony",
-  
+  "{101st}": "{101st}",
+  "The Last Alliance": "The Last Alliance",
   "CORP": "CORP",
-  "Brothers in Arms": "Brothers in Arms",
   "GRANDMASTER Clan": "GRANDMASTER Clan",
-  "Polish Eagles": "Polish Eagles",
-  "VS": "VS",
+
   "Vikinger": "Vikinger",
+  "Brothers in Arms": "Brothers in Arms",
+  "Myth Busters": "Myth Busters",
+  "Prime": "Prime",
+  "Union of Soviet Socialist Republics": "Union of Soviet Socialist Republics",
+  "Polish Eagles": "Polish Eagles",
   "Partisans": "Partisans",
-  
+
+  "VS": "VS",
+  "[V.I.W] Very Important Weirdos": "[V.I.W] Very Important Weirdos",
+  "Nestlings": "Nestlings",
+  "M'Hunters": "M'Hunters",
+  "Battle Wolves": "Battle Wolves",
+  "Soldiers of Fortune": "Soldiers of Fortune",
+  "KILL ‘EM ALL": "KILL ‘EM ALL",
+
+  "The Simulation": "The Simulation",
+  "German Warlords": "German Warlords",
+  "The Barbarians": "Barbarians",
+  "The Poon Squad": "Poon Squad",
+  "Undisputed": "Undisputed",
+
+  // Keeping below for reference
+  "Fifth Column Confederation": "Fifth Column Confederation",
+  "French Community": "French Community",
   "Celtica": "Celtica",
   "The Blue Devils": "The Blue Devils",
   "peepee poo fard": "peepee poo fard",
-  "Prime": "Prime",
   "Cats": "Cats",
-
-  "Union of Soviet Socialist Republics": "Union of Soviet Socialist Republics",
   "SPARTA": "SPARTA",
-  "Soldiers of Fortune": "Soldiers of Fortune",
-  "The Barbarians": "The Barbarians",
   "Nofrag": "Nofrag",
-  "Nestlings": "Nestlings",
-
-  "German Warlords": "German Warlords",
-  "Myth Busters": "Myth Busters",
-  "KILL ‘EM ALL": "KILL ‘EM ALL",
-  "Battle Wolves": "Battle Wolves",
-  "M'Hunters": "M'Hunters",
-  
-  // Keeping below for reference
   "[WG]": "|WG|",
   "Discovery": "Discovery",
   "M'Hunters": "M'Hunters",
@@ -76,20 +79,20 @@ const API_TO_SHEET_CLANS = {
 };
 
 // Divisions array for iterating
-const DIVISIONS = ["A", "B", "C", "D1", "D2", "D3"];
+const DIVISIONS = ["A", "B", "C1", "C2", "D"];
 
 const TEMPLATE_TO_POINTS = {
-  "3v3 Biomes of Americas": 5,
-  "3v3 Europe": 5,
-  "2v2 Final Earth": 4,
-  "2v2 Guiroma": 4,
-  "2v2 Timid Land": 4,
-  "1v1 ME WR": 3,
-  "1v1 Georgia Army Cap": 3,
-  "1v1 Hannibal at the Gates": 3,
-  "1v1 French Brawl": 3,
-  "1v1 Elitist Africa": 3,
-  "1v1 Post-Melt Antarctica": 3,
+  "3v3 Middle Earth in Third Age": 5,
+  "3v3 Deadman's Rome": 5,
+  "2v2 Volcano Island": 4,
+  "2v2 Szeurope": 4,
+  "2v2 Crimea Army Cap": 4,
+  "1v1 Unicorn Island": 3,
+  "1v1 MME MA LD LF": 3,
+  "1v1 Aseridith Islands": 3,
+  "1v1 Guiroma": 3,
+  "1v1 Landria": 3,
+  "1v1 Fogless Fighting (CL)": 3,
 };
 
 /*************************************
