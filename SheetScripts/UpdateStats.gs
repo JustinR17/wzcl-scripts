@@ -1,15 +1,14 @@
-
 var templates = [
-  # 3v3
+  // 3v3
   "Deadman's Rome",
   "Middle Earth in Third Age",
 
-  # 2v2
+  // 2v2
   "Volcano Island",
   "Szeurope",
   "Crimea Army Cap",
 
-  # 1v1
+  // 1v1
   "Unicorn Island",
   "MME MA LD LF",
   "Aseridith Islands",

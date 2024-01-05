@@ -1,15 +1,14 @@
-
 var templates = [
-  # 3v3
+  // 3v3
   "Deadman's Rome",
   "Middle Earth in Third Age",
 
-  # 2v2
+  // 2v2
   "Volcano Island",
   "Szeurope",
   "Crimea Army Cap",
 
-  # 1v1
+  // 1v1
   "Unicorn Island",
   "MME MA LD LF",
   "Aseridith Islands",
@@ -18,10 +17,11 @@ var templates = [
   "Fogless Fighting (CL)"
 ];
 var divisions = ["A", "B", "C1", "C2", "D"];
+const PLAYER_URL_REGEX = /^.*?p=(\d*).*$/;
 
 // Finds the index'th occurrence of the subString in the string
-function getPosition(string, subString, index) {
-  return string.split(subString, index).join(subString).length;
+function getPosition(stringToSearch, subString, index) {
+  return stringToSearch.split(subString, index).join(subString).length;
 }
 
 // Returns the number of clans in a division for the Rosters page
@@ -181,7 +181,7 @@ function initializeGLSheets(division, clanOrder, lineups, roster) {
         let playerObj = roster[clanOrder[j]].find(e => e.name === lineups[i][clanOrder[j]][p]);
         if (playerObj) {
           let link = playerObj.link.getLinkUrl();
-          lineupData[j+i*23][p+12] = link.substring(link.indexOf("=")+1);
+          lineupData[j+i*23][p+12] = PLAYER_URL_REGEX.exec(link)[1];
         }
       }
       lineupData[j+i*23][9] = 0;
