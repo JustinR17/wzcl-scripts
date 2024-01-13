@@ -1,72 +1,60 @@
 Division A
-TemplateCL16: 3v3 Biomes of America
-TemplateCL16: 3v3 Europe
-TemplateCL16: 2v2 Final Earth
-TemplateCL16: 2v2 Guiroma
-TemplateCL16: 2v2 Timid Land
-TemplateCL16: 1v1 ME WR
-TemplateCL16: 1v1 Georgia Army Cap
-TemplateCL16: 1v1 Hannibal at the Gates
-TemplateCL16: 1v1 French Brawl
-TemplateCL16: 1v1 Elitist Africa
-TemplateCL16: 1v1 Post-Melt Antarctica
+Template3v3 Middle Earth in Third Age
+Template3v3 Deadman's Rome
+Template2v2 Volcano Island
+Template2v2 Szeurope
+Template2v2 Crimea Army Cap
+Template1v1 Unicorn Island
+Template1v1 MME MA LD LF
+Template1v1 Aseridith Islands
+Template1v1 Guiroma
+Template1v1 Landria
+Template1v1 Fogless Fighting (CL)
 Division B
-TemplateCL16: 3v3 Biomes of America
-TemplateCL16: 3v3 Europe
-TemplateCL16: 2v2 Final Earth
-TemplateCL16: 2v2 Guiroma
-TemplateCL16: 2v2 Timid Land
-TemplateCL16: 1v1 ME WR
-TemplateCL16: 1v1 Georgia Army Cap
-TemplateCL16: 1v1 Hannibal at the Gates
-TemplateCL16: 1v1 French Brawl
-TemplateCL16: 1v1 Elitist Africa
-TemplateCL16: 1v1 Post-Melt Antarctica
-Division C
-TemplateCL16: 3v3 Biomes of America
-TemplateCL16: 3v3 Europe
-TemplateCL16: 2v2 Final Earth
-TemplateCL16: 2v2 Guiroma
-TemplateCL16: 2v2 Timid Land
-TemplateCL16: 1v1 ME WR
-TemplateCL16: 1v1 Georgia Army Cap
-TemplateCL16: 1v1 Hannibal at the Gates
-TemplateCL16: 1v1 French Brawl
-TemplateCL16: 1v1 Elitist Africa
-TemplateCL16: 1v1 Post-Melt Antarctica
-Division D1
-TemplateCL16: 3v3 Biomes of America
-TemplateCL16: 3v3 Europe
-TemplateCL16: 2v2 Final Earth
-TemplateCL16: 2v2 Guiroma
-TemplateCL16: 2v2 Timid Land
-TemplateCL16: 1v1 ME WR
-TemplateCL16: 1v1 Georgia Army Cap
-TemplateCL16: 1v1 Hannibal at the Gates
-TemplateCL16: 1v1 French Brawl
-TemplateCL16: 1v1 Elitist Africa
-TemplateCL16: 1v1 Post-Melt Antarctica
-Division D2
-TemplateCL16: 3v3 Biomes of America
-TemplateCL16: 3v3 Europe
-TemplateCL16: 2v2 Final Earth
-TemplateCL16: 2v2 Guiroma
-TemplateCL16: 2v2 Timid Land
-TemplateCL16: 1v1 ME WR
-TemplateCL16: 1v1 Georgia Army Cap
-TemplateCL16: 1v1 Hannibal at the Gates
-TemplateCL16: 1v1 French Brawl
-TemplateCL16: 1v1 Elitist Africa
-TemplateCL16: 1v1 Post-Melt Antarctica
-Division D3
-TemplateCL16: 3v3 Biomes of America
-TemplateCL16: 3v3 Europe
-TemplateCL16: 2v2 Final Earth
-TemplateCL16: 2v2 Guiroma
-TemplateCL16: 2v2 Timid Land
-TemplateCL16: 1v1 ME WR
-TemplateCL16: 1v1 Georgia Army Cap
-TemplateCL16: 1v1 Hannibal at the Gates
-TemplateCL16: 1v1 French Brawl
-TemplateCL16: 1v1 Elitist Africa
-TemplateCL16: 1v1 Post-Melt Antarctica
+Template3v3 Middle Earth in Third Age
+Template3v3 Deadman's Rome
+Template2v2 Volcano Island
+Template2v2 Szeurope
+Template2v2 Crimea Army Cap
+Template1v1 Unicorn Island
+Template1v1 MME MA LD LF
+Template1v1 Aseridith Islands
+Template1v1 Guiroma
+Template1v1 Landria
+Template1v1 Fogless Fighting (CL)
+Division C1
+Template3v3 Middle Earth in Third Age
+Template3v3 Deadman's Rome
+Template2v2 Volcano Island
+Template2v2 Szeurope
+Template2v2 Crimea Army Cap
+Template1v1 Unicorn Island
+Template1v1 MME MA LD LF
+Template1v1 Aseridith Islands
+Template1v1 Guiroma
+Template1v1 Landria
+Template1v1 Fogless Fighting (CL)
+Division C2
+Template3v3 Middle Earth in Third Age
+Template3v3 Deadman's Rome
+Template2v2 Volcano Island
+Template2v2 Szeurope
+Template2v2 Crimea Army Cap
+Template1v1 Unicorn Island
+Template1v1 MME MA LD LF
+Template1v1 Aseridith Islands
+Template1v1 Guiroma
+Template1v1 Landria
+Template1v1 Fogless Fighting (CL)
+Division D
+Template3v3 Middle Earth in Third Age
+Template3v3 Deadman's Rome
+Template2v2 Volcano Island
+Template2v2 Szeurope
+Template2v2 Crimea Army Cap
+Template1v1 Unicorn Island
+Template1v1 MME MA LD LF
+Template1v1 Aseridith Islands
+Template1v1 Guiroma
+Template1v1 Landria
+Template1v1 Fogless Fighting (CL)
