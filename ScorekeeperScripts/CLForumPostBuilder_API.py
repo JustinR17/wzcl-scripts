@@ -133,10 +133,10 @@ clan_links = {
   "Union Strikes Back": "https://imgur.com/IVnQ3TX.png",
   
   # Div B
-  "The Last Alliance": "https://imgur.com/c2FMNmu.png",
+  "The Last Alliance": "https://imgur.com/Oi0jmPf.png",
   "HAWKS": "https://imgur.com/1xgfJ4G.png",
   "Harmony": "https://imgur.com/VZGl4LU.png",
-  "GRANDMASTER Clan": "https://imgur.com/AD8wUnD.png",
+  "GRANDMASTER Clan": "https://imgur.com/l2S9RXr.png",
   "CORP": "https://imgur.com/0zWLmjC.png",
   "|GG|": "https://imgur.com/Rrj2rKK.png",
   "{101st}": "https://imgur.com/OkdlLpM.png",
@@ -151,7 +151,7 @@ clan_links = {
   "Brothers in Arms": "https://imgur.com/BWiTNux.png",
   
   # Div C2
-  "VS": "https://imgur.com/tTPt5ms.png",
+  "VS": "https://imgur.com/3XMds4x.png",
   "Soldiers of Fortune": "https://imgur.com/wkiTBkg.png",
   "Nestlings": "https://imgur.com/tZGPF9g.png",
   "M'Hunters": "https://imgur.com/Ink4qVz.png",
