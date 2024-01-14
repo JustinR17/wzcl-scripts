@@ -15,7 +15,9 @@ The following should be updated somewhere once a clan league
 */
 
 // UPDATE THE spreadsheet ID in the .env file... This is the ID in the URL
-const spreadsheetId = process.env.CL16_SSID;
+const spreadsheetId = process.env.CL17_SSID;
+//CL17_SSID
+//CL17_TEST_SSID
 //CL16_SSID
 //CL15_TEST_SSID
 
@@ -166,6 +168,7 @@ async function updateSheet(division, games, sheet, boots, finished_game_list) {
 
   let templateGames = games["Division " + division];
   let tournaments = [];
+  console.log(JSON.stringify(templateGames, null, 4));
 
   //! Start with updating wins/losses & links for clans
   let template;

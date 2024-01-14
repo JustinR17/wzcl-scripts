@@ -43,8 +43,12 @@ async function webScrapeClot() {
                 // All remaining tables reflect CL game tables to parse
                 //! Update the indices based on the template name structures
                 let tablerows = table.children[0].children;
-                let division = tablerows[0].children[0].children[0].data.substring(0, 11).trim();
-                let template = tablerows[0].children[0].children[0].data.substring(19).trim();
+
+                const divisionRegex = /^(Division \w+)/;
+                const templateRegex = /(\dv\d .+)/;
+
+                let division = tablerows[0].children[0].children[0].data.match(divisionRegex)[0].trim();
+                let template = tablerows[0].children[0].children[0].data.match(templateRegex)[0].trim();
 
                 if (template.includes("Biomes")) {
                     template = "3v3 Biomes of Americas";
