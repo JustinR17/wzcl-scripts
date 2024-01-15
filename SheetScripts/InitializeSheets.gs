@@ -173,6 +173,9 @@ function initializeGLSheets(division, clanOrder, lineups, roster) {
 
   
   for (let i = 0; i < templates.length; i++) {
+    if (i != 0) {
+      lineupData[i*23-1] = ["Players", "", "", "", "", "", "", "", "", "W", "L", "Pts", "P1", i < 5 ? "P2":"", i < 2 ? "P3":""]
+    }
     for (let j = 0; j < clanOrder.length; j++) {
       for (let p = 0; p < lineups[i][clanOrder[j]].length; p++) {
         lineupData[j+i*23][p*3] = lineups[i][clanOrder[j]][p];
