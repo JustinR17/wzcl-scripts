@@ -452,39 +452,23 @@ async function updateSheetGameList(division, game_list, sheet) {
   ).data.values;
 
 
-  let clans = {};
-  for (let i = 6; i < currentGamesRO[0].length; i += 2) {
-    clans[currentGamesRO[0][i]] = {
-      pc: 0,
-      pw: 0
-    };
-  }
-
   // First we must iterate through existing games to tally the clan points contested (pc) & points won (pw)
   // This also initializes the writer head pointer to the next empty position
   let i = 1;
   while (currentGamesRO && currentGamesRO[i] && currentGamesRO[i][0]) {
-    for (let j = 6; j < currentGamesRO[i].length; j += 2) {
-      clans[currentGamesRO[0][j]] = {
-        pc: Number(currentGamesRO[i][j]),
-        pw: Number(currentGamesRO[i][j+1]),
-      };
-    }
     i++;
   }
   let currentGamesWO = [];
-
   // Sort the games by date first and then push new results to a writable rows array
   game_list.sort((a, b) => (a.date < b.date ? -1 : 1));
   for (let idx = 0; idx < game_list.length; idx++) {
     currentGamesWO.push([
       game_list[idx].template,
-      game_list[idx].winners.name,
-      game_list[idx].losers.name,
+      API_TO_SHEET_CLANS[game_list[idx].winners.name],
+      API_TO_SHEET_CLANS[game_list[idx].losers.name],
       TEMPLATE_TO_POINTS[game_list[idx].template],
       game_list[idx].date,
       game_list[idx].link,
-      ...getClanPointsForGameList(clans, TEMPLATE_TO_POINTS[game_list[idx].template], game_list[idx].winners.name, game_list[idx].losers.name)
     ]);
   }
 
@@ -493,7 +477,7 @@ async function updateSheetGameList(division, game_list, sheet) {
       {
         auth: jwtClient,
         spreadsheetId: spreadsheetId,
-        range: `Games_${division}!A${1+i}:T${1+i+game_list.length}`,
+        range: `Games_${division}!A${1+i}:F${1+i+game_list.length}`,
         resource: { values: currentGamesWO },
         valueInputOption: "USER_ENTERED",
       },
