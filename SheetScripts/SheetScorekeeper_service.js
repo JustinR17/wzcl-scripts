@@ -22,8 +22,8 @@ const spreadsheetId = process.env.CL17_SSID;
 //CL16_SSID
 //CL15_TEST_SSID
 
-const EMAIL = process.env.EMAIL
-const TOKEN = process.env.TOKEN
+const EMAIL = process.env.Email
+const TOKEN = process.env.APIToken
 
 // This is a mapping from the clans true name (on wz and the clot) to the name normal name in the spreadsheet
 // I separate divisions with an empty line, but this is purely visual and has no purpose
@@ -137,13 +137,9 @@ async function mockWebScrape() {
 const QUERY_GAME_API = 'https://www.warzone.com/API/GameFeed';
 async function getWarzoneGameTurn(gameUrl) {
   const gameId = /GameID=(\d*)$/.exec(gameUrl)[1];
-  console.log(gameId);
-  response = await axios.post(`${QUERY_GAME_API}?GameID=${gameId}`, {
-    APIToken: TOKEN,
-    Email: EMAIL,
-  });
+  response = await axios.post(`${QUERY_GAME_API}?GameID=${gameId}`, `APIToken=${TOKEN}&Email=${EMAIL}`);
 
-  return response.data.numberOfTurns ?? -1;
+  return (response.data.state === "WaitingForPlayers" ? -2 : response.data.numberOfTurns) ?? -2;
 }
 
 async function updateSheet(division, games, sheet, boots, finished_game_list) {
@@ -211,9 +207,9 @@ async function updateSheet(division, games, sheet, boots, finished_game_list) {
         // ensure arrays have proper length
         leftClanGamesWO[row] = [''];
       }
-      if (rightClanGamesWO[row] && rightClanGamesWO[row].length != 2) {
+      while (rightClanGamesWO[row].length < 3) {
         // ensure arrays have proper length
-        rightClanGamesWO[row] = ['',''];
+        rightClanGamesWO[row].push('');
       }
 
       // Find applicable game
@@ -240,10 +236,11 @@ async function updateSheet(division, games, sheet, boots, finished_game_list) {
             leftClanGamesWO[row][0] = "LOST";
             rightClanGamesWO[row][0] = "WON";
           }
-        } else if (!clanGamesRO[row][1]) {
+        }
+        
+        if (!clanGamesRO[row][1] || !rightClanGamesWO[row][2]) {
           // add the current turn to the sheet
           // we only do this if the game has not been marked finished already
-          if (rightClanGamesWO[row].length < 3) rightClanGamesWO[row].push('')
           rightClanGamesWO[row][2] = await getWarzoneGameTurn(game.link);
         }
 
