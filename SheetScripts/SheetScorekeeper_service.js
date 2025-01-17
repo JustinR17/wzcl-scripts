@@ -75,7 +75,6 @@ const API_TO_SHEET_CLANS = {
   "Nofrag": "Nofrag",
   "[WG]": "|WG|",
   "Discovery": "Discovery",
-  "M'Hunters": "M'Hunters",
   "Statisticians": "Statisticians",
   "The Boiz Army": "The Boiz Army",
   "Varangian Guard": "Varangian Guard",
