@@ -186,7 +186,7 @@ async function updateSheet(division, games, sheet, boots, finished_game_list) {
   for (let row = 0; row < clanGamesRO.length; row++) {
     if (clanGamesRO[row] && formats.includes(clanGamesRO[row][0])) {
       // new template
-      template = clanGamesRO[row][0] + " " + clanGamesRO[row][1];
+      template = clanGamesRO[row][1];
       tournaments.push(template);
       console.log("\tStarting to process: " + template);
 
