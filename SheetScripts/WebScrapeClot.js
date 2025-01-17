@@ -50,9 +50,9 @@ async function webScrapeClot() {
                 let division = tablerows[0].children[0].children[0].data.match(divisionRegex)[0].trim();
                 let template = tablerows[0].children[0].children[0].data.match(templateRegex)[0].trim();
 
-                if (template.includes("Biomes")) {
-                    template = "3v3 Biomes of Americas";
-                }
+                // if (template.includes("Biomes")) {
+                //     template = "3v3 Biomes of Americas";
+                // }
                 
                 // Init games object if div/template does not exist
                 if (!(division in games)) {

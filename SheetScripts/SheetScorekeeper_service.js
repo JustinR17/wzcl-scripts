@@ -361,7 +361,7 @@ async function updateSheet(division, games, sheet, boots, finished_game_list) {
       {
         auth: jwtClient,
         spreadsheetId: spreadsheetId,
-        range: division === 'C' ? `GLC!Z3:AA253` : `GL${division}!Y3:Z253`,
+        range: division === 'C' ? `GLC!Z3:AA315` : `GL${division}!Y3:Z253`,
         resource: { values: playerTablesWO },
         valueInputOption: "USER_ENTERED",
       },
