@@ -16,7 +16,7 @@ The following should be updated somewhere once a clan league
 */
 
 // UPDATE THE spreadsheet ID in the .env file... This is the ID in the URL
-const spreadsheetId = process.env.CL17_SSID;
+const spreadsheetId = process.env.CL18_SSID;
 //CL17_SSID
 //CL17_TEST_SSID
 //CL16_SSID
@@ -85,7 +85,7 @@ const API_TO_SHEET_CLANS = {
 };
 
 // Divisions array for iterating
-const DIVISIONS = ["A", "B", "C1", "C2", "D"];
+const DIVISIONS = ["A", "B", "C"];
 
 const TEMPLATE_TO_POINTS = {
   "3v3 Middle Earth in Third Age": 5,
@@ -311,7 +311,7 @@ async function updateSheet(division, games, sheet, boots, finished_game_list) {
     await sheet.spreadsheets.values.get({
       auth: jwtClient,
       spreadsheetId: spreadsheetId,
-      range: `GL${division}!O3:AD253`,
+      range: division === 'C' ? 'GLC!P3:AE253' : `GL${division}!O3:AD253`,
     })
   ).data.values;
   // Avoid overwriting unchanging fomula values (ie clans) as these are expensive to recompute
@@ -320,7 +320,7 @@ async function updateSheet(division, games, sheet, boots, finished_game_list) {
       auth: jwtClient,
       spreadsheetId: spreadsheetId,
       valueRenderOption: "FORMULA",
-      range: `GL${division}!Y3:Z253`,
+      range: division === 'C' ? `GLC!Z3:AA315` : `GL${division}!Y3:Z253`,
     })
   ).data.values;
 
@@ -363,7 +363,7 @@ async function updateSheet(division, games, sheet, boots, finished_game_list) {
       {
         auth: jwtClient,
         spreadsheetId: spreadsheetId,
-        range: `GL${division}!Y3:Z253`,
+        range: division === 'C' ? `GLC!Z3:AA253` : `GL${division}!Y3:Z253`,
         resource: { values: playerTablesWO },
         valueInputOption: "USER_ENTERED",
       },

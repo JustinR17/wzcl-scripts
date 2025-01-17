@@ -1,4 +1,4 @@
-var divisions = ["A", "B", "C1", "C2", "D"];
+var divisions = ["A", "B", "C"];
 var TOTAL_POINTS = {
   3: 0.80,
   4: 1.20,
@@ -12,9 +12,10 @@ var TOTAL_POINTS = {
 
 function updateDivisionStandings(division) {
   var sheet = SpreadsheetApp.getActive().getSheetByName('DATA_' + division);
-  var clanStatsRange = sheet.getRange("A4:P10");
-  var standingsRange = sheet.getRange("X36:AU101");
-  var percentCompletedRange = sheet.getRange("AW36:BC101");
+  let isDivisionC = division == "C";
+  var clanStatsRange = sheet.getRange(isDivisionC ? "A4:P11" : "A4:P10");
+  var standingsRange = sheet.getRange(isDivisionC ? "Y38:AY101" : "X36:AU101");
+  var percentCompletedRange = sheet.getRange(isDivisionC ? "BA38:BH101" : "AW36:BC101");
   
   var clanStatsData = clanStatsRange.getValues();
   var standingsData = standingsRange.getValues();
@@ -36,22 +37,22 @@ function updateDivisionStandings(division) {
       
       // Set the week keys
       standingsData[i][0] = "Week " + (i-1);
-      standingsData[i][8] = "Week " + (i-1);
-      standingsData[i][16] = "Week " + (i-1);
+      standingsData[i][isDivisionC ? 9 : 8] = "Week " + (i-1);
+      standingsData[i][isDivisionC ? 18 : 16] = "Week " + (i-1);
       
-      for (let j = 1; j < 8; j++) {
+      for (let j = 1; j < isDivisionC ? 9 : 8; j++) {
         if (!(standingsData[0][j] in clans)) {
           continue;
         }
         standingsData[i][j] = clans[standingsData[0][j]].tp;
       }
       
-      for (let j = 0; j < 7; j++) {
+      for (let j = 0; j < isDivisionC ? 8 : 7; j++) {
         if (!(standingsData[0][j+1] in clans)) {
           continue;
         }
-        standingsData[i][j + 9] = clans[standingsData[0][j+1]].pc;
-        standingsData[i][j + 17] = clans[standingsData[0][j+1]].wr;
+        standingsData[i][j + (isDivisionC ? 10 : 9)] = clans[standingsData[0][j+1]].pc;
+        standingsData[i][j + (isDivisionC ? 19 : 17)] = clans[standingsData[0][j+1]].wr;
         percentCompletedData[i][j] = clans[standingsData[0][j+1]].tpc / TOTAL_POINTS[clanCount];
       }
       

@@ -1,22 +1,22 @@
 var templates = [
   // 3v3
-  "Deadman's Rome",
-  "Middle Earth in Third Age",
+  "Magna Europa",
+  "Europe",
 
   // 2v2
-  "Volcano Island",
-  "Szeurope",
-  "Crimea Army Cap",
+  "Black Sea Brawl",
+  "Final Earth",
+  "Landria Earth",
 
   // 1v1
-  "Unicorn Island",
-  "MME MA LD LF",
-  "Aseridith Islands",
-  "Guiroma",
-  "Landria",
-  "Fogless Fighting (CL)"
+  "Timid Lands",
+  "Númenor",
+  "Strat ME",
+  "Biomes of America",
+  "Greece",
+  "Lampuria Swap"
 ];
-var divisions = ["A", "B", "C1", "C2", "D"];
+var divisions = ["A", "B", "C"];
 const PLAYER_URL_REGEX = /^.*?p=(\d*).*$/;
 
 // Finds the index'th occurrence of the subString in the string
@@ -40,8 +40,8 @@ function readRosters() {
   Logger.log("Here is the sheet name: " + SpreadsheetApp.getActive().getName());
   Logger.log("Here is the sheet: " + sheet.getSheetName());
     
-  var rosterData = sheet.getRange("A1:U72").getValues();
-  var rosterLinks = sheet.getRange("A1:U72").getRichTextValues();
+  var rosterData = sheet.getRange("A1:X72").getValues();
+  var rosterLinks = sheet.getRange("A1:X72").getRichTextValues();
   
   roster = [];
   order = [];
@@ -98,7 +98,7 @@ function readLineups() {
   Logger.log("Here is the sheet name: " + SpreadsheetApp.getActive().getName());
   Logger.log("Here is the sheet: " + sheet.getSheetName());
   
-  let lineupData = sheet.getRange("A1:BJ60").getValues();
+  let lineupData = sheet.getRange("A1:BJ50").getValues();
   let lineups = [];
   
   for (let divIdx = 0; divIdx < divisions.length; divIdx++) {
@@ -106,8 +106,9 @@ function readLineups() {
 
     for (let i = 1; i < lineupData[0].length; i+=6) {
       let templateLineup = {}
+      let clansPerDivision = divIdx == 2 ? 8 : 7
       
-      for (let row = 0; row < 7; row++) {
+      for (let row = 0; row < clansPerDivision; row++) {
         if (!lineupData[divIdx * 10 + 3 + row][0]) continue;
 
         templateLineup[lineupData[divIdx * 10 + 3 + row][0]] = [];
@@ -143,14 +144,16 @@ function initializeDataSheets(division, clanOrder, lineups) {
   Logger.log("Here is the sheet name: " + SpreadsheetApp.getActive().getName());
   Logger.log("Here is the sheet: " + sheet.getSheetName());
   
-  let lineupRange = sheet.getRange("K18:O114");
+  let lineupRange = sheet.getRange(division == "C" ? "L18:P125" : "K18:O125");
   let lineupData = lineupRange.getValues();
+  // Division C has 8 clans instead of 7
+  let clanCountIncrement = division == "C" ? 10 : 9;
 
   for (let i = 0; i < templates.length; i++) {
     Logger.log(lineups[i]);
     for (let j = 0; j < clanOrder.length; j++) {
       for (let p = 0; p < lineups[i][clanOrder[j]].length; p++) {
-        lineupData[j+i*9][p*2] = lineups[i][clanOrder[j]][p];
+        lineupData[j+i*clanCountIncrement][p*2] = lineups[i][clanOrder[j]][p];
       }
     }
   }
@@ -167,28 +170,25 @@ function initializeGLSheets(division, clanOrder, lineups, roster) {
   Logger.log("Here is the sheet name: " + SpreadsheetApp.getActive().getName());
   Logger.log("Here is the sheet: " + sheet.getSheetName());
   
-  let lineupRange = sheet.getRange("P3:AD253");
+  let lineupRange = sheet.getRange(division == "C" ? "Q3:AE314" : "P3:AD314");
   
   let lineupData = lineupRange.getFormulas();
 
-  
+  let templateRowsCounts = division == "C" ? 30 : 23
   for (let i = 0; i < templates.length; i++) {
-    if (i != 0) {
-      lineupData[i*23-1] = ["Players", "", "", "", "", "", "", "", "", "W", "L", "Pts", "P1", i < 5 ? "P2":"", i < 2 ? "P3":""]
-    }
     for (let j = 0; j < clanOrder.length; j++) {
       for (let p = 0; p < lineups[i][clanOrder[j]].length; p++) {
-        lineupData[j+i*23][p*3] = lineups[i][clanOrder[j]][p];
+        lineupData[j+i*templateRowsCounts][p*3] = lineups[i][clanOrder[j]][p];
 
         // Add player IDs
         let playerObj = roster[clanOrder[j]].find(e => e.name === lineups[i][clanOrder[j]][p]);
         if (playerObj) {
           let link = playerObj.link.getLinkUrl();
-          lineupData[j+i*23][p+12] = PLAYER_URL_REGEX.exec(link)[1];
+          lineupData[j+i*templateRowsCounts][p+12] = PLAYER_URL_REGEX.exec(link)[1];
         }
       }
-      lineupData[j+i*23][9] = 0;
-      lineupData[j+i*23][10] = 0;
+      lineupData[j+i*templateRowsCounts][9] = 0;
+      lineupData[j+i*templateRowsCounts][10] = 0;
     }
   }
   
@@ -303,7 +303,6 @@ function initialize() {
   for (let i = 0; i < divisions.length; i++) {
     initializeDataSheets(divisions[i], roster.order[i], lineups[i]);
     initializeGLSheets(divisions[i], roster.order[i], lineups[i], roster.roster[i]);
-    
   }
   
  initializeStatsSheets(roster.roster, lineups, roster.order);
