@@ -1,60 +1,36 @@
 Division A
-Template3v3 Middle Earth in Third Age
-Template3v3 Deadman's Rome
-Template2v2 Volcano Island
-Template2v2 Szeurope
-Template2v2 Crimea Army Cap
-Template1v1 Unicorn Island
-Template1v1 MME MA LD LF
-Template1v1 Aseridith Islands
-Template1v1 Guiroma
-Template1v1 Landria
-Template1v1 Fogless Fighting (CL)
+Template3v3 Magna Europa
+Template3v3 Europe
+Template2v2 Black Sea Brawl
+Template2v2 Final Earth
+Template2v2 Landria Earth
+Template1v1 Timid Lands
+Template1v1 Númenor
+Template1v1 Strat ME
+Template1v1 Biomes of America
+Template1v1 Greece
+Template1v1 Lampuria Swap
 Division B
-Template3v3 Middle Earth in Third Age
-Template3v3 Deadman's Rome
-Template2v2 Volcano Island
-Template2v2 Szeurope
-Template2v2 Crimea Army Cap
-Template1v1 Unicorn Island
-Template1v1 MME MA LD LF
-Template1v1 Aseridith Islands
-Template1v1 Guiroma
-Template1v1 Landria
-Template1v1 Fogless Fighting (CL)
-Division C1
-Template3v3 Middle Earth in Third Age
-Template3v3 Deadman's Rome
-Template2v2 Volcano Island
-Template2v2 Szeurope
-Template2v2 Crimea Army Cap
-Template1v1 Unicorn Island
-Template1v1 MME MA LD LF
-Template1v1 Aseridith Islands
-Template1v1 Guiroma
-Template1v1 Landria
-Template1v1 Fogless Fighting (CL)
-Division C2
-Template3v3 Middle Earth in Third Age
-Template3v3 Deadman's Rome
-Template2v2 Volcano Island
-Template2v2 Szeurope
-Template2v2 Crimea Army Cap
-Template1v1 Unicorn Island
-Template1v1 MME MA LD LF
-Template1v1 Aseridith Islands
-Template1v1 Guiroma
-Template1v1 Landria
-Template1v1 Fogless Fighting (CL)
-Division D
-Template3v3 Middle Earth in Third Age
-Template3v3 Deadman's Rome
-Template2v2 Volcano Island
-Template2v2 Szeurope
-Template2v2 Crimea Army Cap
-Template1v1 Unicorn Island
-Template1v1 MME MA LD LF
-Template1v1 Aseridith Islands
-Template1v1 Guiroma
-Template1v1 Landria
-Template1v1 Fogless Fighting (CL)
+Template3v3 Magna Europa
+Template3v3 Europe
+Template2v2 Black Sea Brawl
+Template2v2 Final Earth
+Template2v2 Landria Earth
+Template1v1 Timid Lands
+Template1v1 Númenor
+Template1v1 Strat ME
+Template1v1 Biomes of America
+Template1v1 Greece
+Template1v1 Lampuria Swap
+Division C
+Template3v3 Magna Europa
+Template3v3 Europe
+Template2v2 Black Sea Brawl
+Template2v2 Final Earth
+Template2v2 Landria Earth
+Template1v1 Timid Lands
+Template1v1 Númenor
+Template1v1 Strat ME
+Template1v1 Biomes of America
+Template1v1 Greece
+Template1v1 Lampuria Swap
