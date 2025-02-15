@@ -40,14 +40,15 @@ function updateDivisionStandings(division) {
       standingsData[i][isDivisionC ? 9 : 8] = "Week " + (i-1);
       standingsData[i][isDivisionC ? 18 : 16] = "Week " + (i-1);
       
-      for (let j = 1; j < isDivisionC ? 9 : 8; j++) {
+      for (let j = 1; j < (isDivisionC ? 9 : 8); j++) {
+        Logger.log("testing: "+ j);
         if (!(standingsData[0][j] in clans)) {
           continue;
         }
         standingsData[i][j] = clans[standingsData[0][j]].tp;
       }
       
-      for (let j = 0; j < isDivisionC ? 8 : 7; j++) {
+      for (let j = 0; j < (isDivisionC ? 8 : 7); j++) {
         if (!(standingsData[0][j+1] in clans)) {
           continue;
         }
