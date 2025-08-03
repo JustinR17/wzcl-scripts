@@ -1,0 +1,1 @@
+0 * * * * /home/pi/Desktop/wzcl-scripts/SheetScripts/run.sh >> /home/pi/Desktop/wzcl-scripts/SheetScripts/logs/output.txt 2>&1
