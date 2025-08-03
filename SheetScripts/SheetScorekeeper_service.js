@@ -48,7 +48,7 @@ const API_TO_SHEET_CLANS = {
   "The Simulation": "Simulation",
   "Polish Eagles": "Polish Eagles",
   "Partisans": "Partisans",
-  "M'Hunters": "MHunters",
+  "M'Hunters": "M'Hunters",
   "KILL ‘EM ALL": "Kill 'em all",
   "German Warlords": "German Warlords",
   "Brothers in Arms": "Brothers in Arms",
@@ -145,7 +145,7 @@ async function updateSheet(division, games, sheet, boots, finished_game_list) {
     await sheet.spreadsheets.values.get({
       auth: jwtClient,
       spreadsheetId: spreadsheetId,
-      range: `GL${division}!A1:E254`,
+      range: `GL${division}!A1:E331`,
     })
   ).data.values;
 
@@ -155,7 +155,7 @@ async function updateSheet(division, games, sheet, boots, finished_game_list) {
       auth: jwtClient,
       spreadsheetId: spreadsheetId,
       valueRenderOption: "FORMULA",
-      range: `GL${division}!B1:B254`,
+      range: `GL${division}!B1:B331`,
     })
   ).data.values;
   let rightClanGamesWO = (
@@ -163,7 +163,7 @@ async function updateSheet(division, games, sheet, boots, finished_game_list) {
       auth: jwtClient,
       spreadsheetId: spreadsheetId,
       valueRenderOption: "FORMULA",
-      range: `GL${division}!D1:F254`,
+      range: `GL${division}!D1:F331`,
     })
   ).data.values;
 
@@ -254,7 +254,7 @@ async function updateSheet(division, games, sheet, boots, finished_game_list) {
       {
         auth: jwtClient,
         spreadsheetId: spreadsheetId,
-        range: `GL${division}!B1:B254`,
+        range: `GL${division}!B1:B331`,
         resource: { values: leftClanGamesWO },
         valueInputOption: "USER_ENTERED",
       },
@@ -280,7 +280,7 @@ async function updateSheet(division, games, sheet, boots, finished_game_list) {
       {
         auth: jwtClient,
         spreadsheetId: spreadsheetId,
-        range: `GL${division}!D1:F254`,
+        range: `GL${division}!D1:F331`,
         resource: { values: rightClanGamesWO },
         valueInputOption: "USER_ENTERED",
       },
@@ -308,7 +308,7 @@ async function updateSheet(division, games, sheet, boots, finished_game_list) {
     await sheet.spreadsheets.values.get({
       auth: jwtClient,
       spreadsheetId: spreadsheetId,
-      range: division === 'C' ? 'GLC!P3:AE253' : `GL${division}!O3:AD253`,
+      range: division === 'C' ? 'GLC!P3:AE331' : `GL${division}!O3:AD253`,
     })
   ).data.values;
   // Avoid overwriting unchanging fomula values (ie clans) as these are expensive to recompute
@@ -317,7 +317,7 @@ async function updateSheet(division, games, sheet, boots, finished_game_list) {
       auth: jwtClient,
       spreadsheetId: spreadsheetId,
       valueRenderOption: "FORMULA",
-      range: division === 'C' ? `GLC!Z3:AA315` : `GL${division}!Y3:Z253`,
+      range: division === 'C' ? `GLC!Z3:AA331` : `GL${division}!Y3:Z253`,
     })
   ).data.values;
 
@@ -360,7 +360,7 @@ async function updateSheet(division, games, sheet, boots, finished_game_list) {
       {
         auth: jwtClient,
         spreadsheetId: spreadsheetId,
-        range: division === 'C' ? `GLC!Z3:AA315` : `GL${division}!Y3:Z253`,
+        range: division === 'C' ? `GLC!Z3:AA331` : `GL${division}!Y3:Z253`,
         resource: { values: playerTablesWO },
         valueInputOption: "USER_ENTERED",
       },
