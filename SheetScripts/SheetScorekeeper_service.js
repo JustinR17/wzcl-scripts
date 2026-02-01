@@ -16,7 +16,7 @@ The following should be updated somewhere once a clan league
 */
 
 // UPDATE THE spreadsheet ID in the .env file... This is the ID in the URL
-const spreadsheetId = process.env.CL18_SSID;
+const spreadsheetId = process.env.CL19_SSID;
 //CL17_SSID
 //CL17_TEST_SSID
 //CL16_SSID
@@ -28,32 +28,35 @@ const TOKEN = process.env.APIToken
 // This is a mapping from the clans true name (on wz and the clot) to the name normal name in the spreadsheet
 // I separate divisions with an empty line, but this is purely visual and has no purpose
 const API_TO_SHEET_CLANS = {
-  "Union Strikes Back": "Union Strikes Back",
-  "The Last Alliance": "The Last Alliance",
-  "Optimum": "Optimum",
-  "MASTER Clan": "MASTER Clan",
-  "Icelandic Turtles": "Icelandic Turtles",
-  "HAWKS": "HAWKS",
+  "CORP": "CORP",
   "Harmony": "Harmony",
-
+  "Icelandic Turtles": "Icelandic Turtles",
+  "MASTER Clan": "MASTER Clan",
+  "Optimum": "Optimum",
+  "Union Strikes Back": "Union Strikes Back",
+  
+  "{101st}": "101st",
+  "[Blitz]": "Blitz",
+  "Polish Eagles": "Polish Eagles",
+  "M'Hunters": "M'Hunters",
+  "The Last Alliance": "The Last Alliance",
   "VS": "VS",
+  
+  "Brothers in Arms": "Brothers in Arms",
+  "KILL ‘EM ALL": "Kill 'em all",
+  "Le Furie Azzurre": "Le Furie Azzurre",
+  "Partisans": "Partisans",
+  "The Simulation": "Simulation",
+  "Undisputed": "Undisputed",
+
+
+  
+  // Keeping below for reference
+  "HAWKS": "HAWKS",
   "Vikinger": "Vikinger",
   "Myth Busters": "Myth Busters",
-  "CORP": "CORP",
-  "{101st}": "101st",
   "[V.I.W] Very Important Weirdos": "VIW",
-  "[Blitz]": "Blitz",
-
-  "Undisputed": "Undisputed",
-  "The Simulation": "Simulation",
-  "Polish Eagles": "Polish Eagles",
-  "Partisans": "Partisans",
-  "M'Hunters": "M'Hunters",
-  "KILL ‘EM ALL": "Kill 'em all",
   "German Warlords": "German Warlords",
-  "Brothers in Arms": "Brothers in Arms",
-
-  // Keeping below for reference
   "Lu Fredd": "Lu Fredd",
   "Python": "Python",
   "|GG|": "|GG|",
@@ -85,17 +88,17 @@ const API_TO_SHEET_CLANS = {
 const DIVISIONS = ["A", "B", "C"];
 
 const TEMPLATE_TO_POINTS = {
-  "3v3 Magna Europa": 5,
-  "3v3 Europe": 5,
-  "2v2 Black Sea Brawl": 4,
-  "2v2 Final Earth": 4,
-  "2v2 Landria Earth": 4,
-  "1v1 Timid Lands": 3,
-  "1v1 Númenor": 3,
-  "1v1 Strat ME": 3,
-  "1v1 Biomes of America": 3,
-  "1v1 Greece": 3,
-  "1v1 Lampuria Swap": 3,
+  "3v3 Deadman's Rome": 5,
+  "3v3 Guntia Choice": 5,
+  "2v2 Guiroma": 4,
+  "2v2 Biomes of America": 4,
+  "2v2 Foggy Lands": 4,
+  "1v1 Australia": 3,
+  "1v1 French Brawl": 3,
+  "1v1 Phobia WR": 3,
+  "1v1 Succession Wars": 3,
+  "1v1 Aseridith Islands": 3,
+  "Battle Islands V": 3,
 };
 
 /*************************************
@@ -308,7 +311,7 @@ async function updateSheet(division, games, sheet, boots, finished_game_list) {
     await sheet.spreadsheets.values.get({
       auth: jwtClient,
       spreadsheetId: spreadsheetId,
-      range: division === 'C' ? 'GLC!P3:AE331' : `GL${division}!O3:AD253`,
+      range: `GL${division}!O3:AD253`,
     })
   ).data.values;
   // Avoid overwriting unchanging fomula values (ie clans) as these are expensive to recompute
@@ -317,7 +320,7 @@ async function updateSheet(division, games, sheet, boots, finished_game_list) {
       auth: jwtClient,
       spreadsheetId: spreadsheetId,
       valueRenderOption: "FORMULA",
-      range: division === 'C' ? `GLC!Z3:AA331` : `GL${division}!Y3:Z253`,
+      range: `GL${division}!Y3:Z253`,
     })
   ).data.values;
 
@@ -360,7 +363,7 @@ async function updateSheet(division, games, sheet, boots, finished_game_list) {
       {
         auth: jwtClient,
         spreadsheetId: spreadsheetId,
-        range: division === 'C' ? `GLC!Z3:AA331` : `GL${division}!Y3:Z253`,
+        range: `GL${division}!Y3:Z253`,
         resource: { values: playerTablesWO },
         valueInputOption: "USER_ENTERED",
       },

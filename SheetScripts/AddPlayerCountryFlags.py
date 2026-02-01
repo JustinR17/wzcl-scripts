@@ -15,7 +15,7 @@ load_dotenv()
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 if os.path.exists("private.json"):
     creds = Credentials.from_service_account_file("private.json", scopes=SCOPES)
-spreadsheet_id = os.environ.get("CL18_SSID")
+spreadsheet_id = os.environ.get("CL19_SSID")
 
 try:
     service: Resource = build("sheets", "v4", credentials=creds)

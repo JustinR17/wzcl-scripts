@@ -27,7 +27,7 @@ OUTPUT_FILE_NAME = "diva2.temp"
 FORUM_FILE_NAME = ".txt"
 
 # Must point to the base league page on the clot (showing all tournaments)
-CLOT_PAGE_URL = "http://wzclot.eastus.cloudapp.azure.com/leagues/928/"
+CLOT_PAGE_URL = "http://wzclot.eastus.cloudapp.azure.com/leagues/965/"
 
 # Division order to show in output (MUST MATCH CLOT NAMES)
 # The dictionary matches the shortform (lowercase) to the actual CLOT name to allow for selecting certain divisions
@@ -40,17 +40,17 @@ divisions = {
 
 # Tournament order to show in output (MUST MATCH CLOT NAMES)
 tournaments = [
-    "3v3 Magna Europa",
-    "3v3 Europe",
-    "2v2 Black Sea Brawl",
-    "2v2 Final Earth",
-    "2v2 Landria Earth",
-    "1v1 Timid Lands",
-    "1v1 Númenor",
-    "1v1 Strat ME",
-    "1v1 Biomes of America",
-    "1v1 Greece",
-    "1v1 Lampuria Swap",
+    "3v3 Deadman's Rome",
+    "3v3 Guntia Choice",
+    "2v2 Guiroma",
+    "2v2 Biomes",
+    "2v2 Foggy Lands",
+    "1v1 Australia",
+    "1v1 French Brawl",
+    "1v1 Phobia WR",
+    "1v1 Succession Wars",
+    "1v1 Aseridith Islands",
+    "1v1 Battle Islands V",
 ]
 
 # If a clan has a point penalty (ex. late submission), add their full name in this dict with the associated pts (MUST MATCH CLOT NAMES)
@@ -85,6 +85,18 @@ abrv_clans_shortforms = [
 # Imgur links for templates to show on the forums... Make sure template name matches the clot names (also copied above in `tournaments`)
 # Note: we use imgur as the links are short (link characters count in WZ forum character limit)
 template_links = {
+    "3v3 Deadman's Rome": "https://imgur.com/bB4ex5B.png",
+    "3v3 Guntia Choice": "https://imgur.com/zOhLQfx.png",
+    "2v2 Guiroma": "https://imgur.com/NR9s4rB.png",
+    "2v2 Biomes": "https://imgur.com/PawtFUG.png",
+    "2v2 Foggy Lands": "https://imgur.com/OPbyenD.png",
+    "1v1 Australia": "https://imgur.com/l2b6V4r.png",
+    "1v1 French Brawl": "https://imgur.com/NpCxoTw.png",
+    "1v1 Phobia WR": "https://imgur.com/dXw0CGj.png",
+    "1v1 Succession Wars": "https://imgur.com/91QHGpa.png",
+    "1v1 Aseridith Islands": "https://imgur.com/GHxmTRo.png",
+    "1v1 Battle Islands V": "https://imgur.com/UVDYfG0.png",
+    # Archived
     "3v3 Magna Europa": "https://imgur.com/iPtLtwT.png",
     "3v3 Europe": "https://imgur.com/9MWUoUN.png",
     "2v2 Black Sea Brawl": "https://imgur.com/3owEU2E.png",
@@ -96,33 +108,26 @@ template_links = {
     "1v1 Biomes of America": "https://imgur.com/9cxWHhf.png",
     "1v1 Greece": "https://imgur.com/SPudXtE.png",
     "1v1 Lampuria Swap": "https://imgur.com/aGvkCET.png",
-    # Archived
     "3v3 Middle Earth in Third Age": "https://imgur.com/pPYvIov.png",
-    "3v3 Deadman's Rome": "https://imgur.com/bB4ex5B.png",
     "2v2 Volcano Island": "https://imgur.com/10VeKTG.jpg",
     "2v2 Szeurope": "https://imgur.com/Nqvvx3Q.png",
     "2v2 Crimea Army Cap": "https://imgur.com/ln4QkqE.jpg",
     "1v1 Unicorn Island": "https://imgur.com/boXqSyb.jpg",
     "1v1 MME MA LD LF": "https://imgur.com/e54RPGO.jpg",
-    "1v1 Aseridith Islands": "https://imgur.com/GHxmTRo.png",
     "1v1 Guiroma": "https://imgur.com/iN2ZawR.png",
     "1v1 Landria": "https://imgur.com/F0fbzMw.jpg",
     "1v1 Fogless Fighting (CL)": "https://imgur.com/IJTkbNl.jpg",
     "CL16: 3v3 Biomes of America": "https://imgur.com/Dduifq6.png",
     "CL16: 3v3 Europe": "https://imgur.com/9MWUoUN.png",
     "CL16: 2v2 Final Earth": "https://imgur.com/pMEAGCV.png",
-    "CL16: 2v2 Guiroma": "https://imgur.com/NR9s4rB.png",
     "CL16: 2v2 Timid Land": "https://imgur.com/QhLhEeJ.png",
     "CL16: 1v1 ME WR": "https://imgur.com/cIZwh78.png",
     "CL16: 1v1 Georgia Army Cap": "https://imgur.com/IaSI0cv.png",
     "CL16: 1v1 Hannibal at the Gates": "https://imgur.com/MgsU57Q.png",
-    "CL16: 1v1 French Brawl": "https://imgur.com/NpCxoTw.png",
     "CL16: 1v1 Elitist Africa": "https://imgur.com/vLXCtrN.png",
     "CL16: 1v1 Post-Melt Antarctica": "https://imgur.com/G71kHKb.png",
     "CL15: 2v2 Strategic MME": "https://imgur.com/7PJHjkF.png",
-    "CL15: 2v2 Biomes of America": "https://imgur.com/PawtFUG.png",
     "CL15: 1v1 Timid Lands": "https://imgur.com/R5e3lyn.png",
-    "CL15: 1v1 Battle Islands V": "https://imgur.com/UVDYfG0.png",
     "CL15: 1v1 Strategic Greece": "https://imgur.com/SPudXtE.png",
     "CL15: 1v1 Numenor": "https://imgur.com/l2iq2zR.png",
     "CL15: 1v1 Great Lakes": "https://imgur.com/oAe8HTv.png",
@@ -132,31 +137,32 @@ template_links = {
 # Note: we use imgur as the links are short (link characters count in WZ forum character limit)
 clan_links = {
     # Div A
-    "Union Strikes Back": "https://imgur.com/IVnQ3TX.png",
-    "The Last Alliance": "https://imgur.com/hQrA1RG.png",  # Note: picture from JK, 18x18
-    # "The Last Alliance": "https://imgur.com/Oi0jmPf.png",  # Note: picture from justin, 15x15
-    "Optimum": "https://imgur.com/K2HAsvM.png",
-    "MASTER Clan": "https://imgur.com/uHxS00R.png",
-    "Icelandic Turtles": "https://imgur.com/0tpDVPZ.png",
-    "HAWKS": "https://imgur.com/1xgfJ4G.png",
+    "CORP": "https://imgur.com/0zWLmjC.png",
     "Harmony": "https://imgur.com/VZGl4LU.png",
+    "Icelandic Turtles": "https://imgur.com/0tpDVPZ.png",
+    "MASTER Clan": "https://imgur.com/uHxS00R.png",
+    "Optimum": "https://imgur.com/K2HAsvM.png",
+    "Union Strikes Back": "https://imgur.com/IVnQ3TX.png",
     # Div B
+    "{101st}": "https://imgur.com/OkdlLpM.png",
+    "[Blitz]": "https://imgur.com/qIAwJPK.png",
+    "Polish Eagles": "https://imgur.com/pzZVaEU.png",
+    "M'Hunters": "https://imgur.com/Ink4qVz.png",
+    "The Last Alliance": "https://imgur.com/hQrA1RG.png",  # Note: picture from JK, 18x18
     "VS": "https://imgur.com/3XMds4x.png",
+    # Div C
+    "Brothers in Arms": "https://imgur.com/BWiTNux.png",
+    "KILL ‘EM ALL": "https://imgur.com/OM3mlos.png",
+    "Le Furie Azzurre": "https://imgur.com/lvQENpH.png",
+    "Partisans": "https://imgur.com/5UigdKO.png",
+    "The Simulation": "https://imgur.com/4qtGbvs.png",
+    "Undisputed": "https://imgur.com/Q409MJp.png",
+    # "The Last Alliance": "https://imgur.com/Oi0jmPf.png",  # Note: picture from justin, 15x15
+    "HAWKS": "https://imgur.com/1xgfJ4G.png",
     "Vikinger": "https://imgur.com/UzqbzFY.png",
     "Myth Busters": "https://imgur.com/tH6BflU.png",
-    "CORP": "https://imgur.com/0zWLmjC.png",
-    "{101st}": "https://imgur.com/OkdlLpM.png",
     "[V.I.W] Very Important Weirdos": "https://imgur.com/2HOm8M1.png",
-    "[Blitz]": "https://imgur.com/qIAwJPK.png",
-    # Div C
-    "Undisputed": "https://imgur.com/Q409MJp.png",
-    "The Simulation": "https://imgur.com/4qtGbvs.png",
-    "Polish Eagles": "https://imgur.com/pzZVaEU.png",
-    "Partisans": "https://imgur.com/5UigdKO.png",
-    "M'Hunters": "https://imgur.com/Ink4qVz.png",
-    "KILL ‘EM ALL": "https://imgur.com/OM3mlos.png",
     "German Warlords": "https://imgur.com/LtA4QBx.png",
-    "Brothers in Arms": "https://imgur.com/BWiTNux.png",
     # Archived
     "Python": "https://imgur.com/WnXXWFK.png",
     "ONE!": "https://imgur.com/MrRBTDH.png",
